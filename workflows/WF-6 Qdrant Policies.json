@@ -1,0 +1,191 @@
+{
+  "name": "WF-6 Qdrant Policies",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Upload File",
+        "formDescription": "01",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Your File",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "93bf0d17-40b9-4afc-877e-c936683b08cd",
+      "name": "On form submission",
+      "webhookId": "1268a9fe-4a92-4ab1-acb1-6e33d5803bf5"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "Policies",
+          "mode": "list",
+          "cachedResultName": "Policies"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "e1e4df35-027f-45a8-90e5-e0a4a801662d",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "DuSFnGNqBxnE5m8I",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        192
+      ],
+      "id": "0eab4188-45d0-4ad0-8eca-3dfb4aac830c",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "Q8zNgvOFi62z0bJ5",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        192
+      ],
+      "id": "28ffeecc-ba87-439f-bbbf-17c604fffc0d",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "content": "   להעלאת  קבצים לבסיס Qdrant מודול\n ממיר הכל למידה ווקטורי \nמשם הסוכן יודע לשלוף מידה לפי מילות מפתח",
+        "height": 96,
+        "width": 320,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -112
+      ],
+      "id": "21e47939-e7be-446e-ab6b-4046c42f0b8f",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "ממשק להעלאת קבצים \nQdrant למודול",
+        "height": 80,
+        "width": 176,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -112
+      ],
+      "id": "686c846f-62c6-450b-b8de-b6682dbb4580",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "מודל שמייצר\nEmbeddings",
+        "height": 80,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        304
+      ],
+      "id": "d9b549d6-89c1-4d55-b6e9-2c2da7a6004b",
+      "name": "Sticky Note4"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6d8aa545-68ae-4f9d-bd5f-b5030cc7fc88",
+  "meta": {
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "NtX47vpPz26omF0q",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

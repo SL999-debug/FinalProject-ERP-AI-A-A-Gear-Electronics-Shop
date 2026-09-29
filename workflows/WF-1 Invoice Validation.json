@@ -1,0 +1,614 @@
+{
+  "name": "WF-1 Invoice Validation",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5947d35a-874d-4a93-b406-8fff20655232",
+              "leftValue": "={{ $json.fields.Amount }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "f8e2ac3d-b2ae-4520-969a-7786724e33f3",
+              "leftValue": "={{ $json.fields.Created }}",
+              "rightValue": "2026-01-01T00:00:00",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            },
+            {
+              "id": "0768ef43-735e-4baa-987d-8097ed9f1ce7",
+              "leftValue": "={{ $json.fields.CustomerId }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "1ab79f50-79ce-4322-9599-7a8950053072",
+              "leftValue": "={{ $json.fields.InvoiceNumber }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1904,
+        272
+      ],
+      "id": "595dd9ed-7766-4f89-a521-11545dc71eb5",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblYpMuYkBuuQPmpT",
+          "mode": "list",
+          "cachedResultName": "Tasks",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblYpMuYkBuuQPmpT"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "New",
+            "Title": "=לא תקינה {{ $json.fields.InvoiceNumber }}{{ $json.fields.InvoiceVatNumber }}{{ $json.fields.RecieptNumber }} חשבונית",
+            "Level": "High"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Level",
+              "displayName": "Level",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2160,
+        432
+      ],
+      "id": "7f042a60-172e-4baf-8ca8-a70bab8b87ec",
+      "name": "Create Task record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "אם מסמך נכשל בבדיקה < נשלח למסימות כולל מספר מסמך ",
+        "height": 96,
+        "width": 230,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2096,
+        320
+      ],
+      "id": "a976c442-86e7-434a-86e8-0f51494545d4",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "רץ כל דקה ובודק האם נוצרה חשבונית חדשה",
+        "height": 80,
+        "width": 304,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        176
+      ],
+      "id": "032969c7-37cb-4568-8596-7c44a2690fe2",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "בצומת מסמך נבדק שכל הנתונים הבאים תקינים\n\nסכום - חיובי, לא (ב - ) \nחדש מ 2026 / 01 / 01  \nישנם מספרי לקוח ומסמך\n\n",
+        "height": 208,
+        "width": 182,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1856,
+        32
+      ],
+      "id": "338948d0-ea66-45c5-9be2-98b52cd4f146",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblDB9aqEOvlrpFH8",
+          "mode": "list",
+          "cachedResultName": "invoices",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblDB9aqEOvlrpFH8"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "InvoiceNumber": "={{ 'INV0000' + $('Counter').item.json.total_rows }}",
+            "Status": "Pending",
+            "id": "={{ $('Airtable InvoiceTrigger').item.json.id }}",
+            "Vat": "={{ $json.Vat }}",
+            "Total": "={{ $json.Total }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "InvoiceNumber",
+              "displayName": "InvoiceNumber",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "CustomerId",
+              "displayName": "CustomerId",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "InvoiceType",
+              "displayName": "InvoiceType",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Amount",
+              "displayName": "Amount",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Vat",
+              "displayName": "Vat",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Products",
+              "displayName": "Products",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "PdfUrl",
+              "displayName": "PdfUrl",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Created",
+              "displayName": "Created",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2704,
+        160
+      ],
+      "id": "385ef23c-ec80-47d5-a54e-bcd63b0949c8",
+      "name": "Update Pending",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "https://airtable.com/appVONWYUf40A1qX5/tblDB9aqEOvlrpFH8/viwn0f06TTWAAypiD?blocks=hide",
+          "mode": "url"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "https://airtable.com/appVONWYUf40A1qX5/tblDB9aqEOvlrpFH8/",
+          "mode": "url"
+        },
+        "triggerField": "Created",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        1616,
+        272
+      ],
+      "id": "8d6d0c5b-3073-4854-a1c8-c87038708425",
+      "name": "Airtable InvoiceTrigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "נותן לחשבונית מספר ייחודי רץ לפי סדר   Pending ומעדכן סטטוס ל",
+        "height": 96,
+        "width": 278,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2624,
+        32
+      ],
+      "id": "8f9e8a5d-1e7d-47a3-9798-6c336fe1e631",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "מחלץ וסופר כמות חשבוניות",
+        "height": 96,
+        "width": 198,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        32
+      ],
+      "id": "a1fb6557-c896-4eeb-900a-5f45dea57b57",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    total_rows: $input.all().length\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2256,
+        160
+      ],
+      "id": "ae54f3fa-a4f1-4551-9da9-1656aaa65328",
+      "name": "Counter"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblDB9aqEOvlrpFH8",
+          "mode": "list",
+          "cachedResultName": "Invoices",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblDB9aqEOvlrpFH8"
+        },
+        "filterByFormula": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2144,
+        160
+      ],
+      "id": "eaf3b4ea-c5c0-41d6-9cb0-908e89f47f50",
+      "name": "Get Records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5e308ffc-e3d7-47f3-8834-d4d5da0f2894",
+              "name": "Total",
+              "value": "={{ Math.round($('Airtable InvoiceTrigger').item.json.fields.Amount * 1.18) }}",
+              "type": "string"
+            },
+            {
+              "id": "cbda1db6-a192-409d-8b10-b055848febfc",
+              "name": "Vat",
+              "value": "={{ Math.round($('Airtable InvoiceTrigger').item.json.fields.Amount * 0.18) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2448,
+        160
+      ],
+      "id": "4f5f32c8-7044-49e4-90d7-2b840b96cc07",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "מחשב מע\"מ וסכום+מע\"ע",
+        "height": 96,
+        "width": 198,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        32
+      ],
+      "id": "c2fa65f0-d4f6-43b5-b460-69cf99643ea9",
+      "name": "Sticky Note5"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get Records",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create Task record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable InvoiceTrigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Counter": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Records": {
+      "main": [
+        [
+          {
+            "node": "Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update Pending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "801d184a-fa5a-4b42-9a74-04b9b1667fa5",
+  "meta": {
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "slEmzrbiwHUzkd4o",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

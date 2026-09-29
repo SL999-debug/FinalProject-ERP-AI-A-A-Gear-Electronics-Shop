@@ -1,0 +1,284 @@
+{
+  "name": "WF-4b EmailReply",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblj2M1alapmPvKFs",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblj2M1alapmPvKFs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $json.Email }}",
+            "Status": "השיב"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Interested",
+              "displayName": "Interested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Created",
+              "displayName": "Created",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        -64
+      ],
+      "id": "a1ce23bd-f320-4295-a72a-e524434a6d80",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "64b58bce-68fa-45d1-a1a8-a9081c16b9f5",
+              "name": "Email",
+              "value": "={{ $json.From.match(/<([^>]+)>/)?.[1] || $json.From }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -208,
+        -64
+      ],
+      "id": "13b3e0c4-6c04-427a-80d5-490f98dd1cff",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "כל 30 דקות בודק תשובה מלידים שמקודם קיבלו מיילים קרים",
+        "height": 80,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -160
+      ],
+      "id": "3ca250dd-c7bb-424e-820b-8acca9abd930",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "מחלץ מייל מתשובה של ליד",
+        "height": 80,
+        "width": 208,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -160
+      ],
+      "id": "12203b0e-be69-4f46-a8ab-22b0113f9c1f",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "מעדכן סטטוס של ליד לפי מייל",
+        "height": 80,
+        "width": 224,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -160
+      ],
+      "id": "f25aaa59-b989-44c5-b8f3-3d83fd0a1983",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 1,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "maxResults": 1,
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -496,
+        -64
+      ],
+      "id": "238ede6d-2610-4af9-8927-788a353b8c43",
+      "name": "Gmail Trigger every 30min",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Dit5ARZh7H9d44io",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger every 30min": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "079b5b3e-d69a-4095-9a97-6ffd7569b02c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "85nzTTgxlEB357gL",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

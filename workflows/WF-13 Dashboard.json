@@ -1,0 +1,867 @@
+{
+  "name": "WF-13 Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "ERPMainSite",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -864,
+        528
+      ],
+      "id": "6c7ddff3-9af5-4d3f-a064-74b3c937b543",
+      "name": "Webhook",
+      "webhookId": "8381e10b-01f7-4671-a4ee-53a25c4824d3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query.prompt }}\n",
+        "options": {
+          "systemMessage": "You are a helpful assistant answering about products, company policies, warranty, working hours and other information from vector storage only, every time you checking it from vector storage!"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -640,
+        736
+      ],
+      "id": "1a56442a-3b17-453c-81d5-091569fb764c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -736,
+        752
+      ],
+      "id": "66e26b0e-3bc0-4555-86cf-7add7bad3a86",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Q8zNgvOFi62z0bJ5",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -272,
+        1152
+      ],
+      "id": "8be4b0da-0284-470d-9fc8-c881e06f22a8",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "Q8zNgvOFi62z0bJ5",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "you answering about products only",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "ProductsDemo",
+          "mode": "list",
+          "cachedResultName": "ProductsDemo"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        -224,
+        960
+      ],
+      "id": "ef6408ae-e328-4b6f-a6e6-43b6dfa92796",
+      "name": "Qdrant Vector Store Products",
+      "credentials": {
+        "qdrantApi": {
+          "id": "DuSFnGNqBxnE5m8I",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.from.id }}{{ $('Webhook').item.json.headers['x-real-ip'] }} {Id} = '0001'",
+        "collectionName": "FinalProject"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
+      "typeVersion": 1.1,
+      "position": [
+        -624,
+        976
+      ],
+      "id": "92b52e69-ff14-4da3-b6b1-f2357d3d5157",
+      "name": "MongoDB Chat Memory",
+      "credentials": {
+        "mongoDb": {
+          "id": "EKiotErbSX3RLBFK",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "זיכרון של הסוכן\n ID שיחה נשמרת בבסיס על פי\nTELEGRAM של שולח ב ",
+        "height": 80,
+        "width": 224,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        864
+      ],
+      "id": "214005de-2d41-4eaa-bfbb-390831198cef",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "QDrant מאגרי מידע לתשובות מבוקרות ממוקם בבסיס",
+        "height": 80,
+        "width": 368,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        864
+      ],
+      "id": "82cf2bca-d7ea-458e-8f40-cb447b66c247",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "you answering about policies and other data about company",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "Policies",
+          "mode": "list",
+          "cachedResultName": "Policies"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        -480,
+        960
+      ],
+      "id": "84902d21-20e8-472a-9763-420b8c643630",
+      "name": "Qdrant Vector Store Policies",
+      "credentials": {
+        "qdrantApi": {
+          "id": "DuSFnGNqBxnE5m8I",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "סוכן שרות לקוחות שולף מידה ממאגרי : מוצרים ומדיוניות / מידה",
+        "height": 96,
+        "width": 176,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        736
+      ],
+      "id": "c3f3398f-3080-416a-868b-6484e7691b12",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "מודל קטן יותר ששולף מהבסיס מידה רלוונטי",
+        "height": 80,
+        "width": 304,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        1072
+      ],
+      "id": "ded0d1f1-8e5b-42d0-a3ba-7fdc83140068",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "ממתין לפניה מאתר WEBHOOK ",
+        "height": 80,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        416
+      ],
+      "id": "8abfc86f-e80b-4db3-880f-a9bc91e3a04e",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.query.action }}",
+                    "rightValue": "read",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "1c623c72-b72b-4344-9aca-ea6d08cbee01"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c643d710-b763-447b-836b-7ee1304927c4",
+                    "leftValue": "={{ $json.query.action }}",
+                    "rightValue": "create",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "690d0a7e-108e-4ffa-8715-94693fa72b67",
+                    "leftValue": "={{ $json.query.action }}",
+                    "rightValue": "update",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0b93623c-7608-4c07-a626-45197bb77e3f",
+                    "leftValue": "={{ $json.query.action }}",
+                    "rightValue": "delete",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c19394d8-0dbe-48e5-bfc5-23a507f80866",
+                    "leftValue": "={{ $json.query.action }}",
+                    "rightValue": "chat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -560,
+        480
+      ],
+      "id": "6617f217-f1ba-4818-b304-4a6895a8397c",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.query.payload }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        16,
+        528
+      ],
+      "id": "479aee8b-e2b4-476a-bf1f-57bb02f2de92",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.query.payload }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        16,
+        368
+      ],
+      "id": "5b2f5adf-4b41-470d-a762-e9a720c48858",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "צומת ניווט לפי פניה לבסיס ופעולה נכונים",
+        "height": 80,
+        "width": 160,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        368
+      ],
+      "id": "ec15f0b0-d422-4435-a0a3-e79509e1f6c0",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "חילוץ מידה לפי פניה מבסיס נכון",
+        "height": 96,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        208
+      ],
+      "id": "c1b3f0ca-a7d6-4bbf-8406-0e4768279d4e",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "מייצר נתון (כמו : חשבונית / ליד / מסימה וכו'...) לפי פניה לבסיס נכון",
+        "height": 96,
+        "width": 246,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        368
+      ],
+      "id": "6f0dc222-8103-42f7-9cf6-021a1db8535a",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "מחזיר לאתר מידה על פעולות שבוצוע לאחר כל התחנות רלוונטיות דרך WEBHOOK",
+        "height": 96,
+        "width": 256,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        368,
+        528
+      ],
+      "id": "47b1c741-b827-429e-ac0a-30be806cb7d9",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "מעדכן נתון (כמו סטטוס : חשבונית / ליד / מסימה וכו'...) לפי פניה לבסיס נכון",
+        "height": 96,
+        "width": 198,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        528
+      ],
+      "id": "3beccd53-61ec-4735-bac2-6e943dbfb605",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "מוחק נתון (כמו : חשבונית / ליד / מסימה וכו'...) לפי פניה לבסיס נכון",
+        "height": 96,
+        "width": 246,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        688
+      ],
+      "id": "898ff4cd-244e-493b-86f9-305f11ceb0d2",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "={{ $('Webhook').item.json.query.table }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        528
+      ],
+      "id": "124907ab-0755-444b-a8fa-62d3dfeb62c2",
+      "name": "Update",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {
+          "enableStreaming": false
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        208,
+        528
+      ],
+      "id": "871b159b-32e7-4b97-97fb-5b2941feb6ec",
+      "name": "Resp to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "={{ $json.query.table }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        208
+      ],
+      "id": "9232af43-cf08-4cad-8734-5d444d47fa32",
+      "name": "Search",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "={{ $('Webhook').item.json.query.table }}",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        368
+      ],
+      "id": "4a016a15-2dfc-4e59-8e25-03e92ec90b5f",
+      "name": "Create",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteRecord",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "={{ $('Webhook').item.json.query.table }}",
+          "mode": "id"
+        },
+        "id": "={{ ($json.query.payload && $json.query.payload.id) || JSON.parse($json.query.payload).id }}"
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        688
+      ],
+      "id": "7a28c24c-39e0-4e9c-9ca9-c2fc6a895d53",
+      "name": "Delete",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Resp to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store Products",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Qdrant Vector Store Policies",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store Products": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MongoDB Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store Policies": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Search",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Create",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update": {
+      "main": [
+        [
+          {
+            "node": "Resp to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search": {
+      "main": [
+        [
+          {
+            "node": "Resp to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create": {
+      "main": [
+        [
+          {
+            "node": "Resp to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete": {
+      "main": [
+        [
+          {
+            "node": "Resp to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b16b1b20-5875-4b69-876d-d742da4f7f8f",
+  "meta": {
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "7MptkVBdJLeC25ew",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

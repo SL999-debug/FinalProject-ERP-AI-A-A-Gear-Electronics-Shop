@@ -1,0 +1,410 @@
+{
+  "name": "WF-3 Leads Input WebHook",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblj2M1alapmPvKFs",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblj2M1alapmPvKFs"
+        },
+        "filterByFormula": "={Email}=\"{{ $json.body.email }}\"",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -704,
+        96
+      ],
+      "id": "a674dd42-200b-455e-842e-c2afc6120a01",
+      "name": "Search records",
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "58d562e4-4f00-4df7-911d-df79fe81c3b8",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -480,
+        96
+      ],
+      "id": "cf19a033-30b7-4c22-8281-271eaac2346d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblj2M1alapmPvKFs",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblj2M1alapmPvKFs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('Webhook').item.json.body.name }}",
+            "Email": "={{ $('Webhook').item.json.body.email }}",
+            "Status": "חדש",
+            "Interested": "={{ $('Webhook').item.json.body.interested_in }}",
+            "Telephone": "={{ $('Webhook').item.json.body.phone }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Interested",
+              "displayName": "Interested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Created",
+              "displayName": "Created",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -256,
+        0
+      ],
+      "id": "9630d819-499c-4977-b3ea-45b4f486106b",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ErpAILids",
+        "responseMode": "responseNode",
+        "options": {
+          "ipWhitelist": ""
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -976,
+        96
+      ],
+      "id": "ed88e8e2-3f7e-4985-a63e-84daeaad0088",
+      "name": "Webhook",
+      "webhookId": "a35ea6d4-19c5-4c9d-be27-dc92d9a3a566"
+    },
+    {
+      "parameters": {
+        "content": "קליטת ליד חדש דרך עמוד נחיתה",
+        "height": 80,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        -16
+      ],
+      "id": "b6f9a1ea-1b23-4793-995c-56056889c6f8",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "בודק בבסיס שאין ליד כפול לפי מייל",
+        "height": 80,
+        "width": 326,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -704,
+        -16
+      ],
+      "id": "a2511aea-c045-417e-a6a9-e2b1e36e31ad",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "עם ליד נוצר בהצלחה מחזיר לעמוד פידבק לליד",
+        "height": 80,
+        "width": 182,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -96
+      ],
+      "id": "264532e0-af20-4dd3-9951-c7f457639083",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "עם ליד נקיים, מחזיר לעמוד פידבק לליד",
+        "height": 80,
+        "width": 166,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        336
+      ],
+      "id": "91e8061b-60da-4dd0-afc3-a97feaa5921f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "יוצר ליד חדש בבסיס   ",
+        "height": 80,
+        "width": 166,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        -96
+      ],
+      "id": "63d65551-5636-4a36-a719-279b6150e4a2",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "LidExist",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -256,
+        192
+      ],
+      "id": "a4331582-c9cc-4f8d-b6e0-8cc3784023f7",
+      "name": "Respond to Webhook LeadExist"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "LidCreated",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "ea93dee2-479b-46f0-80be-c3151bd8b27b",
+      "name": "Respond to Webhook LeadCreated"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Search records": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook LeadExist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook LeadCreated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b20910bf-1ebb-4c0f-86b4-507f0fbefb12",
+  "meta": {
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "g4aOXJJntnkKvCqx",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

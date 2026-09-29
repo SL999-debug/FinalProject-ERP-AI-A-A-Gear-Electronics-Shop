@@ -1,0 +1,546 @@
+{
+  "$comment": "Derived from app/aa-gear-admin.html. airtableField is the exact Airtable field name the dashboard reads/writes; null means the value is NOT persisted.",
+  "business": "AA GEAR Electronics (fictional Israeli electronics retailer)",
+  "generatedFrom": "app/aa-gear-admin.html",
+  "note": "The dashboard exposes 6 of the base's tables. Invoice / tax-invoice (חשבונית מס) / receipt (קבלה) are all rows in ONE invoices table, distinguished by the InvoiceType field - not three separate tables.",
+  "tables": {
+    "products": {
+      "dashboardLabel": "מוצרים",
+      "listColumns": [
+        {
+          "key": "name",
+          "label": "מוצר",
+          "type": "product",
+          "tones": null
+        },
+        {
+          "key": "sku",
+          "label": "מק״ט",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "category",
+          "label": "קטגוריה",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "price",
+          "label": "מחיר",
+          "type": "money",
+          "tones": null
+        },
+        {
+          "key": "stock",
+          "label": "מלאי",
+          "type": "stock",
+          "tones": null
+        },
+        {
+          "key": "status",
+          "label": "זמינות",
+          "type": "status",
+          "tones": {
+            "זמין": "green"
+          }
+        }
+      ],
+      "formFields": [
+        {
+          "key": "name",
+          "label": "שם מוצר",
+          "type": "text",
+          "airtableField": "Name",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "sku",
+          "label": "מק״ט",
+          "type": "text",
+          "airtableField": "SKU",
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "category",
+          "label": "קטגוריה",
+          "type": "select",
+          "airtableField": "Category",
+          "required": false,
+          "options": [
+            "טלוויזיות",
+            "אודיו",
+            "רשת ומחשבים",
+            "קירור",
+            "ציוד ביתי"
+          ]
+        },
+        {
+          "key": "price",
+          "label": "מחיר בש״ח",
+          "type": "number",
+          "airtableField": "Price",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "inStock",
+          "label": "מלאי במחסן",
+          "type": "number",
+          "airtableField": "InStock",
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "imageUrl",
+          "label": "קישור לתמונה",
+          "type": "url",
+          "airtableField": null,
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "description",
+          "label": "תיאור",
+          "type": "textarea",
+          "airtableField": "Description",
+          "required": false,
+          "options": null
+        }
+      ],
+      "unmappedFormFields": [
+        "imageUrl"
+      ]
+    },
+    "customers": {
+      "dashboardLabel": "לקוחות",
+      "listColumns": [
+        {
+          "key": "customerId",
+          "label": "Id לקוח",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "name",
+          "label": "שם",
+          "type": "person",
+          "tones": null
+        },
+        {
+          "key": "phone",
+          "label": "טלפון",
+          "type": "phone",
+          "tones": null
+        },
+        {
+          "key": "email",
+          "label": "אימייל",
+          "type": "email",
+          "tones": null
+        },
+        {
+          "key": "created",
+          "label": "נוצר",
+          "type": "date",
+          "tones": null
+        }
+      ],
+      "formFields": [
+        {
+          "key": "customerId",
+          "label": "Id לקוח",
+          "type": "text",
+          "airtableField": "CustomerId",
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "name",
+          "label": "שם מלא או שם עסק",
+          "type": "text",
+          "airtableField": "Name",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "phone",
+          "label": "טלפון",
+          "type": "tel",
+          "airtableField": "Phone",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "email",
+          "label": "אימייל",
+          "type": "email",
+          "airtableField": "Mail",
+          "required": false,
+          "options": null
+        }
+      ],
+      "unmappedFormFields": []
+    },
+    "leads": {
+      "dashboardLabel": "לידים",
+      "listColumns": [
+        {
+          "key": "name",
+          "label": "שם",
+          "type": "person",
+          "tones": null
+        },
+        {
+          "key": "phone",
+          "label": "טלפון",
+          "type": "phone",
+          "tones": null
+        },
+        {
+          "key": "interest",
+          "label": "מעניין ב",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "status",
+          "tones": {
+            "חדש": "green",
+            "מייל נשלח": "yellow",
+            "השיב": "orange"
+          }
+        },
+        {
+          "key": "created",
+          "label": "תאריך",
+          "type": "date",
+          "tones": null
+        }
+      ],
+      "formFields": [
+        {
+          "key": "name",
+          "label": "שם",
+          "type": "text",
+          "airtableField": "Name",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "phone",
+          "label": "טלפון",
+          "type": "tel",
+          "airtableField": "Telephone",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "email",
+          "label": "אימייל",
+          "type": "email",
+          "airtableField": "Email",
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "select",
+          "airtableField": "Status",
+          "required": false,
+          "options": [
+            "מייל נשלח",
+            "חדש",
+            "השיב"
+          ]
+        },
+        {
+          "key": "interest",
+          "label": "מעניין ב",
+          "type": "text",
+          "airtableField": "Interested",
+          "required": false,
+          "options": null
+        }
+      ],
+      "unmappedFormFields": []
+    },
+    "orders": {
+      "dashboardLabel": "הזמנות",
+      "listColumns": [
+        {
+          "key": "number",
+          "label": "מספר הזמנה",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "customer",
+          "label": "לקוח",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "items",
+          "label": "פריטים",
+          "type": "num",
+          "tones": null
+        },
+        {
+          "key": "total",
+          "label": "סה״כ",
+          "type": "money",
+          "tones": null
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "status",
+          "tones": null
+        },
+        {
+          "key": "date",
+          "label": "תאריך",
+          "type": "date",
+          "tones": null
+        }
+      ],
+      "formFields": [
+        {
+          "key": "number",
+          "label": "מספר הזמנה",
+          "type": "text",
+          "airtableField": null,
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "customer",
+          "label": "שם לקוח",
+          "type": "text",
+          "airtableField": null,
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "items",
+          "label": "מספר פריטים",
+          "type": "number",
+          "airtableField": null,
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "total",
+          "label": "סה״כ בש״ח",
+          "type": "number",
+          "airtableField": null,
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "select",
+          "airtableField": null,
+          "required": false,
+          "options": [
+            "חדש",
+            "בהכנה",
+            "נשלח",
+            "הושלם",
+            "ביטול"
+          ]
+        },
+        {
+          "key": "date",
+          "label": "תאריך הזמנה",
+          "type": "date",
+          "airtableField": null,
+          "required": false,
+          "options": null
+        },
+        {
+          "key": "notes",
+          "label": "הערות",
+          "type": "textarea",
+          "airtableField": null,
+          "required": false,
+          "options": null
+        }
+      ],
+      "unmappedFormFields": [
+        "number",
+        "customer",
+        "items",
+        "total",
+        "status",
+        "date",
+        "notes"
+      ]
+    },
+    "invoices": {
+      "dashboardLabel": "חשבוניות",
+      "listColumns": [
+        {
+          "key": "number",
+          "label": "מספר חשבונית",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "customer",
+          "label": "לקוח",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "issueDate",
+          "label": "תאריך הפקה",
+          "type": "date",
+          "tones": null
+        },
+        {
+          "key": "pdfUrl",
+          "label": "Pdf",
+          "type": "link",
+          "tones": null
+        },
+        {
+          "key": "amount",
+          "label": "סכום",
+          "type": "num",
+          "tones": null
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "status",
+          "tones": null
+        }
+      ],
+      "formFields": [
+        {
+          "key": "number",
+          "label": "מספר חשבונית",
+          "type": "text",
+          "airtableField": "InvoiceNumber",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "customer",
+          "label": "שם לקוח",
+          "type": "text",
+          "airtableField": "CustomerId",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "invoiceType",
+          "label": "סוג חשבונית",
+          "type": "select",
+          "airtableField": "InvoiceType",
+          "required": false,
+          "options": [
+            "חשבונית מס",
+            "קבלה",
+            "חשבונית"
+          ]
+        },
+        {
+          "key": "amount",
+          "label": "סכום בש״ח",
+          "type": "number",
+          "airtableField": "Amount",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "select",
+          "airtableField": "Status",
+          "required": false,
+          "options": [
+            "Pending",
+            "Uploaded"
+          ]
+        }
+      ],
+      "unmappedFormFields": []
+    },
+    "tasks": {
+      "dashboardLabel": "משימות",
+      "listColumns": [
+        {
+          "key": "title",
+          "label": "משימה",
+          "type": "text",
+          "tones": null
+        },
+        {
+          "key": "priority",
+          "label": "עדיפות",
+          "type": "status",
+          "tones": {
+            "High": "err",
+            "Medium": "orange",
+            "גבוהה": "err",
+            "בינונית": "orange"
+          }
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "status",
+          "tones": {
+            "Closed": "muted",
+            "New": "green",
+            "Seen": "orange"
+          }
+        }
+      ],
+      "formFields": [
+        {
+          "key": "title",
+          "label": "כותרת המשימה",
+          "type": "text",
+          "airtableField": "Title",
+          "required": true,
+          "options": null
+        },
+        {
+          "key": "priority",
+          "label": "עדיפות",
+          "type": "select",
+          "airtableField": "Level",
+          "required": false,
+          "options": [
+            "Low",
+            "Medium",
+            "High"
+          ]
+        },
+        {
+          "key": "status",
+          "label": "סטטוס",
+          "type": "select",
+          "airtableField": "Status",
+          "required": false,
+          "options": [
+            "New",
+            "Seen",
+            "Done"
+          ]
+        }
+      ],
+      "unmappedFormFields": []
+    }
+  }
+}

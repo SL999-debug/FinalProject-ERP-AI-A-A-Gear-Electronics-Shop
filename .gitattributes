@@ -1,0 +1,15 @@
+# Normalise line endings in the repository. The working copy keeps LF so that
+# re-exported n8n JSON and the HTML files do not produce whole-file diffs.
+* text=auto eol=lf
+
+# The Airtable/JSON exports must stay byte-stable: n8n imports them verbatim.
+*.json text eol=lf
+*.md   text eol=lf
+*.html text eol=lf
+
+# Screenshots and other binaries: never touched.
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.gif  binary
+*.webp binary

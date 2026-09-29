@@ -1,0 +1,46 @@
+# --- secrets: none of these belong in this repo ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+service-account*.json
+*token*.json
+
+# --- node / tooling: this project has no build step on purpose ---
+node_modules/
+package-lock.json
+package.json
+*.log
+npm-debug.log*
+.cache/
+.vercel/
+.netlify/
+
+# --- editors / OS ---
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+desktop.ini
+.DS_Store
+.htaccess
+
+# --- n8n local data: the exports in workflows/ are the source of truth ---
+.n8n/
+*.sqlite
+
+# --- large binaries: keep the repo text-friendly. The screenshots in
+#     docs/screenshots/ are the deliberate exception and ARE committed. ---
+*.mp4
+*.mov
+*.zip
+*.7z
+*.psd
+*.fig
+
+# --- generated documentation snapshot ---
+# schema/schema.json IS committed on purpose: it is the contract for the base.

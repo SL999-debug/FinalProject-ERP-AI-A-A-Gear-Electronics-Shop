@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-contrast="normal" data-text="normal" data-motion="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e9edf4">
+<meta name="description" content="AA GEAR אלקטרוניקה — מוצרי חשמל ואלקטרוניקה מקוריים, אחריות לשנתיים, משלוח מהיר לכל הארץ. השאירו פרטים ונחזור אליכם עם הצעת מחיר אישית.">
+<title>AA GEAR אלקטרוניקה | האלקטרוניקה שלך, במחיר הוגן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;700&display=swap">
+<noscript><style>#preloader{display:none!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+/* ===== Tokens ===== */
+:root{
+  --font: Tahoma, "Noto Sans Hebrew", "Segoe UI", Arial, sans-serif;
+  --bg:#e9edf4;
+  --bg-soft:#f2f5fa;
+  --ink:#2b3444;
+  --ink-soft:#596579;
+  --line:#d3dae5;
+  --white:#ffffff;
+  --accent:#2f5fe0;
+  --accent-deep:#1b41ab;
+  --accent-ink:#14306f;
+  --ok:#0f7a4d;
+  --ok-deep:#0a5c39;
+  --err:#b3261e;
+  --focus:#12224d;
+  --sh-light:#ffffff;
+  --sh-dark:#c1cbda;
+  --shadow-1: -7px -7px 16px var(--sh-light), 7px 7px 16px var(--sh-dark);
+  --shadow-2: -3px -3px 8px var(--sh-light), 3px 3px 8px var(--sh-dark);
+  --shadow-in: inset -4px -4px 9px var(--sh-light), inset 4px 4px 9px #c6d0de;
+  --r-sm:12px; --r-md:18px; --r-lg:26px; --r-xl:34px; --r-pill:999px;
+  --dur:260ms; --ease:cubic-bezier(.22,.68,.36,1);
+  --fs-body:1rem; --fs-lead:1.25rem; --fs-h3:1.5625rem; --fs-h2:1.9531rem; --fs-h1:2.4414rem;
+  --a11y-h:74px;
+  --maxw:1160px;
+}
+*{box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth;scroll-padding-block-start:96px;-webkit-text-size-adjust:100%}
+body{
+  margin:0; font-family:var(--font); color:var(--ink); background:var(--bg);
+  font-size:var(--fs-body); line-height:1.6; font-weight:400;
+  padding-block-end:calc(var(--a11y-h) + 12px);
+  background-image:
+    radial-gradient(52rem 34rem at 88% -8%, rgba(47,95,224,.10), transparent 62%),
+    radial-gradient(40rem 30rem at 4% 104%, rgba(15,122,77,.08), transparent 62%);
+  background-attachment:fixed;
+  text-align:start;
+}
+h1,h2,h3{margin:0;line-height:1.22;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+img,svg{max-width:100%}
+a{color:var(--accent-deep);text-underline-offset:3px}
+ul{margin:0;padding:0;list-style:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:where(a,button,input,select,summary,[tabindex]):focus-visible{
+  outline:3px solid var(--focus); outline-offset:3px; border-radius:8px;
+}
+::selection{background:rgba(47,95,224,.22)}
+.shell{width:min(100% - 2.4rem, var(--maxw)); margin-inline:auto}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ===== Skip link ===== */
+.skip{position:fixed;inset-block-start:10px;inset-inline-start:10px;z-index:120;
+  transform:translateY(-160%);opacity:0;transition:transform var(--dur) var(--ease),opacity var(--dur) var(--ease);
+  background:var(--accent);color:#fff;padding:.7rem 1.1rem;border-radius:var(--r-pill);font-weight:700;text-decoration:none;box-shadow:var(--shadow-2)}
+.skip:focus{transform:none;opacity:1}
+
+/* ===== Preloader ===== */
+#preloader{position:fixed;inset:0;z-index:200;display:grid;place-items:center;gap:0;
+  background:var(--bg);transition:opacity 300ms var(--ease),transform 300ms var(--ease)}
+#preloader.is-hidden{opacity:0;transform:scale(1.04);pointer-events:none}
+.pl{width:min(74vw,320px);display:grid;justify-items:center;gap:1.1rem;text-align:center}
+.pl__mark{width:96px;height:96px;display:grid;place-items:center;border-radius:28px;background:var(--bg);
+  box-shadow:var(--shadow-1);animation:plPulse 1500ms var(--ease) infinite}
+@keyframes plPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.pl__ring{position:absolute;width:96px;height:96px;border-radius:28px;box-shadow:0 0 0 2px rgba(47,95,224,.35) inset;animation:plSpin 1400ms linear infinite}
+@keyframes plSpin{to{transform:rotate(360deg)}}
+.pl__brand{font-weight:700;letter-spacing:.14em;font-size:1.25rem;color:var(--accent-ink)}
+.pl__bar{width:100%;height:6px;border-radius:var(--r-pill);background:var(--bg);box-shadow:var(--shadow-in);overflow:hidden}
+.pl__fill{display:block;height:100%;width:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),#4d8bff);
+  transform:scaleX(0);transform-origin:right center;transition:transform 240ms var(--ease)}
+.pl__txt{font-size:.875rem;color:var(--ink-soft)}
+
+/* ===== A11y toolbar ===== */
+.a11y{position:fixed;inset-block-end:0;inset-inline:0;z-index:110;background:var(--bg);
+  border-block-start:1px solid rgba(43,52,68,.08);box-shadow:0 -8px 24px -18px rgba(43,52,68,.5)}
+.a11y__in{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.5rem 0;min-height:var(--a11y-h)}
+.a11y__label{display:inline-flex;align-items:center;gap:.4rem;font-size:.875rem;font-weight:700;color:var(--ink-soft)}
+.a11y__btns{display:flex;gap:.5rem;flex-wrap:wrap;margin-inline-start:auto}
+.abtn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .8rem;border:0;cursor:pointer;
+  border-radius:var(--r-pill);background:var(--bg);box-shadow:var(--shadow-2);font-size:.875rem;font-weight:700;
+  color:var(--ink);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),color var(--dur) var(--ease)}
+.abtn:hover{transform:translateY(-2px);color:var(--accent-ink)}
+.abtn:active{transform:translateY(1px) scale(.98);box-shadow:var(--shadow-in)}
+.abtn[aria-pressed="true"]{background:var(--accent);color:#fff;box-shadow:inset 3px 3px 7px rgba(0,0,0,.28)}
+.abtn svg{width:18px;height:18px;flex:none}
+
+/* ===== Neumorphism building blocks ===== */
+.nm{background:var(--bg);border-radius:var(--r-lg);box-shadow:var(--shadow-1)}
+.lift{position:relative;transition:transform var(--dur) var(--ease)}
+.lift::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:0 20px 32px -20px rgba(20,48,111,.55),0 0 0 1px rgba(47,95,224,.16);
+  opacity:0;transition:opacity var(--dur) var(--ease)}
+.lift:hover::after,.lift:focus-within::after{opacity:1}
+.lift:hover{transform:translateY(-4px)}
+.lift:active{transform:translateY(-1px) scale(.99)}
+.eyebrow{display:inline-flex;align-items:center;gap:.45rem;padding:.35rem .8rem;border-radius:var(--r-pill);
+  background:var(--bg);box-shadow:var(--shadow-2);font-size:.8125rem;font-weight:700;color:var(--accent-ink);letter-spacing:.02em}
+.h2{font-size:clamp(1.5625rem,1.28rem + 1.1vw,var(--fs-h2));margin-block:.55rem .6rem}
+.h3{font-size:clamp(1.25rem,1.14rem + .45vw,var(--fs-h3))}
+.lead{font-size:var(--fs-lead);color:var(--ink-soft);max-inline-size:46ch}
+.muted{color:var(--ink-soft);font-size:.9375rem}
+.sec{padding-block:clamp(3rem,2rem + 4vw,5.2rem)}
+.sec__head{margin-block-end:clamp(1.6rem,1.2rem + 1.4vw,2.4rem)}
+
+/* ===== Buttons ===== */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  min-height:52px;padding:.85rem 1.5rem;border:0;border-radius:var(--r-pill);cursor:pointer;
+  font-weight:700;font-size:1rem;line-height:1;text-decoration:none;
+  background:var(--bg);box-shadow:var(--shadow-1);color:var(--accent-ink);
+  transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),color var(--dur) var(--ease),opacity var(--dur) var(--ease);
+  touch-action:manipulation;overflow:hidden}
+.btn:hover{transform:translateY(-3px);color:var(--accent)}
+.btn:active{transform:translateY(1px) scale(.975);box-shadow:var(--shadow-in)}
+.btn--primary{background:linear-gradient(180deg,#3a6bec,var(--accent));color:#fff;box-shadow:-6px -6px 14px rgba(255,255,255,.85),7px 7px 16px rgba(120,138,170,.55),0 10px 22px -14px rgba(27,65,171,.9)}
+.btn--primary:hover{color:#fff;box-shadow:-6px -6px 14px rgba(255,255,255,.9),8px 9px 20px rgba(110,130,165,.6),0 16px 28px -14px rgba(27,65,171,.95)}
+.btn--primary:active{box-shadow:inset 4px 4px 10px rgba(11,32,88,.45),inset -3px -3px 8px rgba(120,160,255,.5)}
+.btn__ico{width:18px;height:18px;flex:none}
+.spinner{width:20px;height:20px;border-radius:50%;flex:none;
+  border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;opacity:0;transform:scale(.6);
+  transition:opacity 180ms var(--ease),transform 180ms var(--ease);animation:spin 700ms linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn[data-state="loading"]{pointer-events:none;color:rgba(255,255,255,.75)}
+.btn[data-state="loading"] .spinner{opacity:1;transform:none}
+.btn[data-state="loading"] .btn__ico{opacity:0;transform:scale(.6)}
+.btn[data-state="done"]{background:linear-gradient(180deg,#17a468,var(--ok));color:#fff;pointer-events:none}
+.btn[data-state="warn"]{background:linear-gradient(180deg,#c9451a,#a83a12);color:#fff;pointer-events:none;
+  box-shadow:-6px -6px 14px rgba(255,255,255,.85),7px 7px 16px rgba(150,116,98,.5),0 10px 22px -14px rgba(168,58,18,.95)}
+
+/* ===== Header ===== */
+.hdr{position:sticky;inset-block-start:0;z-index:100;background:rgba(233,237,244,.88);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-block-end:1px solid rgba(43,52,68,.07)}
+.hdr__in{display:flex;align-items:center;gap:1rem;min-height:76px}
+.brand{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit;padding:.4rem .5rem;border-radius:var(--r-md);transition:transform var(--dur) var(--ease)}
+.brand:hover{transform:translateY(-2px)}
+.brand__mark{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:var(--bg);box-shadow:var(--shadow-1);flex:none}
+.brand__txt{display:grid;line-height:1.1}
+.brand__en{font-weight:700;letter-spacing:.1em;font-size:1.0625rem;color:var(--accent-ink)}
+.brand__he{font-size:.8125rem;color:var(--ink-soft)}
+.nav{display:flex;align-items:center;margin-inline-start:auto}
+.nav__list{display:flex;align-items:center;gap:.35rem}
+.nav__list a{display:inline-block;padding:.6rem .85rem;border-radius:var(--r-pill);text-decoration:none;color:var(--ink);font-weight:700;font-size:.9375rem;transition:transform var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.nav__list a:hover{color:var(--accent-ink);transform:translateY(-2px);box-shadow:var(--shadow-2)}
+.nav__cta{margin-inline-start:.5rem}
+.burger{display:none;margin-inline-start:auto;width:48px;height:48px;border:0;border-radius:14px;background:var(--bg);
+  box-shadow:var(--shadow-1);cursor:pointer;align-items:center;justify-content:center;transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.burger:hover{transform:translateY(-2px)}
+.burger:active{transform:scale(.94);box-shadow:var(--shadow-in)}
+.burger span{display:block;width:20px;height:2.2px;background:var(--accent-ink);border-radius:2px;position:relative;transition:transform var(--dur) var(--ease),opacity 180ms var(--ease)}
+.burger span::before,.burger span::after{content:"";position:absolute;inset-inline:0;height:2.2px;background:var(--accent-ink);border-radius:2px;transition:transform var(--dur) var(--ease)}
+.burger span::before{transform:translateY(-6px)}.burger span::after{transform:translateY(6px)}
+.burger[aria-expanded="true"] span{background:transparent}
+.burger[aria-expanded="true"] span::before{transform:rotate(45deg)}
+.burger[aria-expanded="true"] span::after{transform:rotate(-45deg)}
+
+/* ===== Hero ===== */
+.hero{padding-block:clamp(2.4rem,1.6rem + 3.4vw,4.6rem) clamp(2.6rem,2rem + 2.4vw,4rem)}
+.hero__grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(1.6rem,1rem + 2.6vw,3.2rem);align-items:center}
+.hero h1{font-size:clamp(1.953rem,1.42rem + 2.5vw,var(--fs-h1));margin-block:.7rem .8rem;max-inline-size:16ch}
+.hero h1 b{color:var(--accent-deep);font-weight:700}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-block-start:1.5rem}
+.hero__stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin-block-start:1.8rem}
+.stat{padding:.95rem 1rem;border-radius:var(--r-md);background:var(--bg);box-shadow:var(--shadow-2);text-align:center}
+.stat b{display:block;font-size:1.25rem;color:var(--accent-ink);line-height:1.2}
+.stat span{font-size:.8125rem;color:var(--ink-soft)}
+.hero__art{position:relative;padding:clamp(1.4rem,1rem + 1.6vw,2.2rem);border-radius:var(--r-xl);background:var(--bg);box-shadow:var(--shadow-1)}
+.hero__art .chip{position:absolute;display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .85rem;border-radius:var(--r-pill);
+  background:var(--bg);box-shadow:var(--shadow-1);font-size:.875rem;font-weight:700;color:var(--ink);
+  opacity:0;transform:translateY(10px) scale(.94);animation:pop 600ms var(--ease) forwards}
+.hero__art .chip--a{inset-block-start:1.1rem;inset-inline-end:-.6rem;animation-delay:420ms}
+.hero__art .chip--b{inset-block-end:1.1rem;inset-inline-start:-.6rem;animation-delay:620ms}
+@keyframes pop{to{opacity:1;transform:none}}
+.hero__screen{aspect-ratio:4/3;border-radius:var(--r-lg);box-shadow:var(--shadow-in);display:grid;place-items:center;gap:.6rem;padding:1rem;text-align:center}
+.hero__screen svg{width:clamp(80px,18vw,132px);height:auto;color:var(--accent)}
+.trust{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-block-start:2rem;padding:0;list-style:none}
+.trust li{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .9rem;border-radius:var(--r-pill);background:var(--bg);box-shadow:var(--shadow-2);font-size:.875rem;font-weight:700;color:var(--ink)}
+.trust svg{width:16px;height:16px;color:var(--ok)}
+
+/* ===== Features ===== */
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1rem,.7rem + 1.2vw,1.6rem)}
+.card{padding:clamp(1.2rem,1rem + .8vw,1.7rem);border-radius:var(--r-lg);background:var(--bg);box-shadow:var(--shadow-1)}
+.card__ico{width:54px;height:54px;display:grid;place-items:center;border-radius:16px;background:var(--bg);box-shadow:var(--shadow-2);margin-block-end:1rem;color:var(--accent)}
+.card__ico svg{width:26px;height:26px}
+.card p{margin-block-start:.45rem}
+
+/* ===== Products ===== */
+.price{display:flex;align-items:baseline;gap:.5rem;margin-block:.9rem .3rem}
+.price b{font-size:1.5625rem;color:var(--accent-ink);line-height:1}
+.price s{color:var(--ink-soft);font-size:.9375rem;opacity:.8}
+.tag{display:inline-block;padding:.25rem .6rem;border-radius:var(--r-pill);background:rgba(15,122,77,.12);color:var(--ok-deep);font-size:.75rem;font-weight:700;box-shadow:inset 1px 1px 3px rgba(15,122,77,.18)}
+.stars{display:flex;gap:2px;color:#c8860d}
+.stars svg{width:16px;height:16px}
+
+/* ===== Steps ===== */
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1rem,.7rem + 1.2vw,1.6rem)}
+.step{position:relative;padding:1.5rem 1.3rem;border-radius:var(--r-lg);background:var(--bg);box-shadow:var(--shadow-1)}
+.step::before{counter-increment:s;content:counter(s);position:absolute;inset-block-start:-16px;inset-inline-start:1.2rem;
+  width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(180deg,#3a6bec,var(--accent));
+  color:#fff;font-weight:700;box-shadow:0 8px 16px -8px rgba(27,65,171,.9)}
+.step p{margin-block-start:.4rem;font-size:.9375rem;color:var(--ink-soft)}
+
+/* ===== Reviews ===== */
+.quote{margin-block-start:.8rem;font-size:.9375rem;color:var(--ink)}
+.rev__who{display:flex;align-items:center;gap:.7rem;margin-block-start:1.1rem;padding-block-start:1rem;border-block-start:1px solid var(--line)}
+.avatar{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--bg);box-shadow:var(--shadow-2);font-weight:700;color:var(--accent-ink)}
+.rev__who b{display:block;font-size:.9375rem}
+.rev__who span{font-size:.8125rem;color:var(--ink-soft)}
+
+/* ===== FAQ ===== */
+.faq{display:grid;gap:.8rem;max-inline-size:820px}
+.faq__item{padding:.3rem 1.1rem;border-radius:var(--r-md);background:var(--bg);box-shadow:var(--shadow-1);transition:transform var(--dur) var(--ease)}
+.faq__item:hover{transform:translateY(-2px)}
+.faq__q{width:100%;display:flex;align-items:center;gap:.8rem;justify-content:space-between;
+  padding:.95rem .1rem;background:none;border:0;cursor:pointer;text-align:start;font-weight:700;font-size:1rem}
+.faq__q .chev{flex:none;width:22px;height:22px;color:var(--accent);transition:transform var(--dur) var(--ease)}
+.faq__item.is-open .chev{transform:rotate(180deg)}
+.faq__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows 280ms var(--ease)}
+.faq__item.is-open .faq__panel{grid-template-rows:1fr}
+.faq__panel>div{overflow:hidden}
+.faq__panel p{padding-block-end:1rem;font-size:.9375rem;color:var(--ink-soft);opacity:0;transform:translateY(-8px);
+  transition:opacity 220ms var(--ease) 70ms,transform 220ms var(--ease) 70ms}
+.faq__item.is-open .faq__panel p{opacity:1;transform:none}
+
+/* ===== Form ===== */
+.lead__grid{display:grid;grid-template-columns:minmax(0,.98fr) minmax(0,1.32fr);gap:clamp(1.4rem,1rem + 2vw,2.6rem);align-items:start}
+.panel{padding:clamp(1.3rem,1rem + 1.4vw,2.1rem);border-radius:var(--r-xl);background:var(--bg);box-shadow:var(--shadow-1)}
+.field{margin-block-end:1.05rem}
+.field>label{display:block;font-weight:700;font-size:.9375rem;margin-block-end:.45rem}
+.field input[type="text"],.field input[type="tel"],.field input[type="email"]{
+  width:100%;min-height:54px;padding:.85rem 1.1rem;border:0;border-radius:var(--r-md);
+  background:var(--bg);box-shadow:var(--shadow-in);transition:box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.field input::placeholder{color:#7d8798;opacity:1}
+.field input:hover{box-shadow:inset -5px -5px 11px var(--sh-light),inset 5px 5px 11px #c0cbdb}
+.field input:focus{outline:0;box-shadow:inset -5px -5px 11px var(--sh-light),inset 5px 5px 11px #c0cbdb,0 0 0 3px var(--accent)}
+.field input:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.field [aria-invalid="true"]{box-shadow:inset -4px -4px 9px var(--sh-light),inset 4px 4px 9px #c6d0de,0 0 0 3px var(--err)}
+.err{display:flex;align-items:center;gap:.35rem;min-height:1.3rem;margin-block-start:.35rem;font-size:.8125rem;font-weight:700;color:var(--err);opacity:0;transform:translateY(-4px);transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.err.is-on{opacity:1;transform:none}
+.submit{width:100%;margin-block-start:.4rem;display:inline-grid;place-items:center}
+.submit>*{grid-area:1/1}
+.submit .btn__label{transition:opacity 200ms var(--ease),transform 200ms var(--ease)}
+.submit[data-state="loading"] .btn__label{opacity:0;transform:scale(.92)}
+.formnote{display:flex;gap:.5rem;align-items:flex-start;margin-block-start:.9rem;font-size:.8125rem;color:var(--ink-soft)}
+.formnote svg{width:16px;height:16px;flex:none;margin-block-start:.15rem;color:var(--accent)}
+.status{margin-block-start:1rem;padding:.95rem 1.1rem;border-radius:var(--r-md);background:var(--bg);box-shadow:var(--shadow-in);
+  font-size:.9375rem;font-weight:700;display:flex;align-items:center;gap:.6rem;opacity:0;transform:translateY(8px);
+  transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.status.is-on{opacity:1;transform:none}
+.status[data-kind="ok"]{color:var(--ok-deep)}
+.status[data-kind="err"]{color:var(--err)}
+.status svg{width:20px;height:20px;flex:none}
+.perks{display:grid;gap:.7rem;margin-block-start:1.3rem}
+.perks li{display:flex;gap:.6rem;align-items:flex-start;font-size:.9375rem}
+.perks svg{width:20px;height:20px;flex:none;color:var(--ok);margin-block-start:.18rem}
+
+/* ===== Accessibility statement ===== */
+.statement{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start;padding:clamp(1.2rem,1rem + 1vw,1.8rem);
+  border-radius:var(--r-lg);background:var(--bg);box-shadow:var(--shadow-1)}
+.statement__ico{width:56px;height:56px;display:grid;place-items:center;border-radius:16px;background:var(--bg);box-shadow:var(--shadow-2);color:var(--accent)}
+.statement__ico svg{width:28px;height:28px}
+.statement p{margin-block-start:.5rem;font-size:.9375rem;color:var(--ink-soft);max-inline-size:62ch}
+
+/* ===== Footer ===== */
+.ftr{margin-block-start:1rem;padding-block:2rem 1rem;border-block-start:1px solid var(--line);text-align:center}
+.ftr__links{display:flex;flex-wrap:wrap;gap:.4rem .9rem;justify-content:center;margin-block-end:.8rem}
+.ftr__links a{font-size:.875rem;font-weight:700;color:var(--ink);text-decoration:none;border-radius:8px;transition:color var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.ftr__links a:hover{color:var(--accent-ink);transform:translateY(-2px)}
+
+/* ===== Reveal ===== */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 300ms var(--ease),transform 300ms var(--ease)}
+.reveal.is-in{opacity:1;transform:none}
+
+/* ===== High contrast / big text / reduced motion ===== */
+html[data-text="lg"]{font-size:18px}
+html[data-contrast="high"]{--bg:#fff;--bg-soft:#fff;--ink:#0a0d14;--ink-soft:#1c2430;--line:#0a0d14;--accent:#0b2f9e;--accent-deep:#08236f;--accent-ink:#08236f;--focus:#000;
+  --sh-light:#fff;--sh-dark:#b9c3d2}
+html[data-contrast="high"] body{background-image:none}
+html[data-contrast="high"] .nm,html[data-contrast="high"] .card,html[data-contrast="high"] .step,
+html[data-contrast="high"] .panel,html[data-contrast="high"] .stat,html[data-contrast="high"] .faq__item,
+html[data-contrast="high"] .statement,html[data-contrast="high"] .hero__art,html[data-contrast="high"] .trust li{outline:2px solid #0a0d14;outline-offset:-2px}
+html[data-contrast="high"] .field input{outline:2px solid #0a0d14;outline-offset:-2px}
+html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{
+  animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ===== Responsive ===== */
+@media (max-width:1000px){
+  .hero__grid,.lead__grid{grid-template-columns:1fr}
+  .hero__art{max-inline-size:520px}
+  .grid-3,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .burger{display:flex}
+  .nav{position:fixed;flex-direction:column;align-items:stretch;inset-block-start:76px;inset-inline:0;margin:0;padding:1rem 1.2rem 1.4rem;
+    background:var(--bg);box-shadow:0 24px 40px -30px rgba(43,52,68,.7);
+    opacity:0;transform:translateY(-12px);pointer-events:none;
+    transition:opacity 240ms var(--ease),transform 240ms var(--ease)}
+  .nav.is-open{opacity:1;transform:none;pointer-events:auto}
+  .nav__list{flex-direction:column;align-items:stretch;gap:.2rem}
+  .nav__list a{padding:.85rem 1rem}
+  .nav__cta{width:100%;margin:0;display:none}
+  .nav__cta.is-shown{display:inline-flex}
+}
+@media (max-width:680px){
+  html{scroll-padding-block-start:84px}
+  :root{--a11y-h:96px}
+  .grid-3,.steps{grid-template-columns:1fr}
+  .hero__stats{grid-template-columns:1fr}
+  .statement{grid-template-columns:1fr}
+  .hero__art .chip{position:static;margin-block-start:.8rem;animation-delay:.2s;opacity:1;transform:none}
+  .hero__art .chip--a{order:2}
+  .a11y__in{justify-content:center}
+  .a11y__btns{margin-inline-start:0;width:100%;justify-content:center}
+  .abtn span.optional{display:none}
+}
+@media (max-width:380px){
+  .abtn{font-size:.8125rem;padding:.45rem .65rem}
+}
+@media print{
+  #preloader,.a11y,.hdr,.skip{display:none!important}
+  body{background:#fff;box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">דלג לתוכן הראשי</a>
+
+<div id="preloader" role="status" aria-live="polite" aria-label="טוען את האתר">
+  <div class="pl">
+    <div class="pl__mark">
+      <div class="pl__ring" aria-hidden="true"></div>
+      <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true" fill="none">
+        <circle cx="24" cy="24" r="18" stroke="#2f5fe0" stroke-width="3.2" stroke-dasharray="6 5"/>
+        <path d="M26.5 12 17 26h6l-1.6 10L31 21.5h-6.2L26.5 12Z" fill="#1b41ab"/>
+      </svg>
+    </div>
+    <p class="pl__brand">AA GEAR</p>
+    <div class="pl__bar" aria-hidden="true"><span class="pl__fill" id="plFill"></span></div>
+    <p class="pl__txt" id="plTxt">טוענים את החנות… 0%</p>
+  </div>
+</div>
+<script>setTimeout(function(){var p=document.getElementById('preloader');if(p)p.classList.add('is-hidden')},4500);</script>
+
+<nav class="a11y" aria-label="כלי נגישות">
+  <div class="shell a11y__in">
+    <span class="a11y__label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 8v13M8 21l4-7 4 7"/></svg>
+      נגישות
+    </span>
+    <div class="a11y__btns">
+      <button class="abtn" type="button" id="tText" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7V5h18v2M12 5v14M9 19h6"/></svg>
+        טקסט גדול
+      </button>
+      <button class="abtn" type="button" id="tContrast" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor"/></svg>
+        ניגודיות חזקה
+      </button>
+      <button class="abtn" type="button" id="tMotion" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+        הפסקת אנימציות
+      </button>
+      <a class="abtn" href="#main" id="tMain">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+        לתוכן
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hdr">
+  <div class="shell hdr__in">
+    <a class="brand" href="#main" aria-label="AA GEAR אלקטרוניקה — לדף הבית">
+      <span class="brand__mark" aria-hidden="true">
+        <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="18" stroke="#2f5fe0" stroke-width="3.4" stroke-dasharray="7 5.5"/>
+          <path d="M26.5 11 16.5 25.5h6L21.4 37 32 21.5h-6.4L26.5 11Z" fill="#1b41ab"/>
+        </svg>
+      </span>
+      <span class="brand__txt"><span class="brand__en">AA GEAR</span><span class="brand__he">אלקטרוניקה</span></span>
+    </a>
+
+    <button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="nav" aria-label="פתח תפריט ניווט">
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav class="nav" id="nav" aria-label="ניווט ראשי">
+      <ul class="nav__list">
+        <li><a href="#why">למה אנחנו</a></li>
+        <li><a href="#products">מוצרים</a></li>
+        <li><a href="#reviews">ביקורות</a></li>
+        <li><a href="#faq">שאלות</a></li>
+      </ul>
+      <a class="btn btn--primary nav__cta is-shown" href="#lead">להשארת פרטים</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <section class="hero shell" aria-labelledby="h1">
+    <div class="hero__grid">
+      <div>
+        <span class="eyebrow reveal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>
+          משלוח מהיר לכל הארץ
+        </span>
+        <h1 class="reveal" id="h1" data-d="60">האלקטרוניקה שלך, <b>במחיר הוגן</b></h1>
+        <p class="lead reveal" data-d="120">מוצרים מקוריים עם אחריות לשנתיים, ייעוץ אישי לפני קנייה ומשלוח מהיר לכל הארץ.</p>
+        <div class="hero__actions reveal" data-d="180">
+          <a class="btn btn--primary" href="#lead">
+            קבלו הצעת מחיר
+            <svg class="btn__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M19 12H6M11 6l-6 6 6 6"/></svg>
+          </a>
+          <a class="btn" href="#products">לכל המוצרים</a>
+        </div>
+        <ul class="hero__stats reveal" data-d="240">
+          <li class="stat"><b>+2,400</b><span>לקוחות מרוצים</span></li>
+          <li class="stat"><b>משלוח חינם</b><span>מעל 500 ₪ </span></li>
+          <li class="stat"><b>4.8/5</b><span>דירוג ממוצע</span></li>
+        </ul>
+      </div>
+
+      <div class="hero__art reveal" data-d="120" aria-hidden="true">
+        <div class="hero__screen">
+          <svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="12" width="104" height="58" rx="7"/>
+            <path d="M42 84h36M60 70v14"/>
+            <path d="M60 26 46 48h9l-3 14 15-21h-9l2-15Z" fill="#2f5fe0" stroke="none"/>
+          </svg>
+        </div>
+        <span class="chip chip--a">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          אחריות 24 חודשים
+        </span>
+
+
+      </div>
+    </div>
+
+    <ul class="trust reveal" data-d="200">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>תשלום מאובטח</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>אחריות מכירה מלאה</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>החזר כספי בתוך 14 יום</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>מלאי באתר</li>
+    </ul>
+  </section>
+
+  <section class="sec shell" id="why" aria-labelledby="h2why">
+    <div class="sec__head reveal">
+      <span class="eyebrow">היתרון שלנו</span>
+      <h2 class="h2" id="h2why">למה לקנות איתנו</h2>
+    </div>
+    <div class="grid-3">
+      <article class="card lift reveal">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22l-9-9V4h9l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.4"/></svg></div>
+        <h3 class="h3">מחיר הוגן</h3>
+        <p class="muted">מחירי אוניברסיטה ללא מסות סתריות.</p>
+      </article>
+      <article class="card lift reveal" data-d="80">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5Z"/><path d="m3 7.5 9 4.5 9-4.5M12 12v9"/></svg></div>
+        <h3 class="h3">מלאי מובטח</h3>
+        <p class="muted">כל מוצר באתר זמין לאספקה מיידית.</p>
+      </article>
+      <article class="card lift reveal" data-d="160">
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="18" height="8" rx="3"/><path d="M20 17h.01"/></svg></div>
+        <h3 class="h3">שירות אישי</h3>
+        <p class="muted">ייעוץ מקצועי בטלפון ובוואטסאפ.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec shell" id="products" aria-labelledby="h2p">
+    <div class="sec__head reveal">
+      <span class="eyebrow">נבחרים</span>
+      <h2 class="h2" id="h2p">מוצרים מומלצים</h2>
+      <p class="muted">כל המחירים כוללים מע״מ ואחריות לשנתיים.</p>
+    </div>
+    <div class="grid-3">
+
+      <article class="card lift reveal" aria-labelledby="p1">
+        <span class="tag">הכי נמכר</span>
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3 class="h3" id="p1">טלוויזיה חכם 55" 4K</h3>
+        <p class="muted">מסף 4K, אפליקציות מובנות ושלט קול.</p>
+        <p class="price"><b>2,499 ₪</b><s>2,899 ₪</s></p>
+        <a class="btn" href="#lead" aria-label="הזמנת טלוויזיה חכם 55 אינץ">הזמנה עכשיו</a>
+      </article>
+
+      <article class="card lift reveal" data-d="80" aria-labelledby="p2">
+        <span class="tag">מומלץ</span>
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></svg></div>
+        <h3 class="h3" id="p2">אוזניות אלחוטיות ANC</h3>
+        <p class="muted">ביטול רעשים ועד 30 שעות האזנה.</p>
+        <p class="price"><b>449 ₪</b><s>549 ₪</s></p>
+        <a class="btn" href="#lead" aria-label="הזמנת אוזניות אלחוטיות">הזמנה עכשיו</a>
+      </article>
+
+      <article class="card lift reveal" data-d="160" aria-labelledby="p3">
+        <span class="tag">חדש</span>
+        <div class="card__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="14" width="20" height="6" rx="2"/><path d="M7 14V8M17 14V8M12 14V5"/><circle cx="12" cy="4" r="1.6"/></svg></div>
+        <h3 class="h3" id="p3">ראוטר Wi-Fi 6</h3>
+        <p class="muted">כיסוי מלא לבית וכיבוי אוטומטי.</p>
+        <p class="price"><b>389 ₪</b></p>
+        <a class="btn" href="#lead" aria-label="הזמנת ראוטר Wi-Fi 6">הזמנה עכשיו</a>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="sec shell" id="how" aria-labelledby="h2h">
+    <div class="sec__head reveal">
+      <span class="eyebrow">תהליך</span>
+      <h2 class="h2" id="h2h">איך זה עובד</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3 class="h3">ממלאים פרטים</h3><p>שם, טלפון ואימייל בטופס קצר.</p></div>
+      <div class="step reveal" data-d="80"><h3 class="h3">חוזרים אליכם</h3><p>מתקשרים תוך שעות עסקים.</p></div>
+      <div class="step reveal" data-d="160"><h3 class="h3">קובעים סדרה</h3><p>אספקה מהירה עד הדלת.</p></div>
+    </div>
+  </section>
+
+  <section class="sec shell" id="reviews" aria-labelledby="h2r">
+    <div class="sec__head reveal">
+      <span class="eyebrow">חוות דעת</span>
+      <h2 class="h2" id="h2r">ביקורות לקוחות</h2>
+    </div>
+    <div class="grid-3">
+      <article class="card lift reveal">
+        <div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+        </div>
+        <p class="quote">״השירות היה מדויק ומהיר, הגעתי להכל ביום אחד.״</p>
+        <div class="rev__who"><span class="avatar" aria-hidden="true">דכ</span><span><b>דנה כ.</b><span>תל אביב</span></span></div>
+      </article>
+      <article class="card lift reveal" data-d="80">
+        <div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+        </div>
+        <p class="quote">״מחירים הוגנים יותר מרשתות גדולות, והאחריות במקום.״</p>
+        <div class="rev__who"><span class="avatar" aria-hidden="true">ימ</span><span><b>יוסי מ.</b><span>ראשון לציון</span></span></div>
+      </article>
+      <article class="card lift reveal" data-d="160">
+        <div class="stars" role="img" aria-label="5 מתוך 5 כוכבים">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.8 1.3 7L12 18l-6.2 3.3 1.3-7L2 9.5l7-.9Z"/></svg>
+        </div>
+        <p class="quote">״הייעוץ היה כן, בלי לדחוף לי לקנות יותר ממה שצריך.״</p>
+        <div class="rev__who"><span class="avatar" aria-hidden="true">מד</span><span><b>מיכל ד.</b><span>חיפה</span></span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec shell" id="faq" aria-labelledby="h2f">
+    <div class="sec__head reveal">
+      <span class="eyebrow">תשובות</span>
+      <h2 class="h2" id="h2f">שאלות נפוצות</h2>
+    </div>
+    <div class="faq">
+
+      <div class="faq__item reveal">
+        <h3>
+          <button class="faq__q" type="button" aria-expanded="false" aria-controls="a1" id="q1">
+            כמה זמן מגיעה האספקה?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </h3>
+        <div class="faq__panel" id="a1" role="region" aria-labelledby="q1"><div><p>בדרך כלל תוך 1–3 ימי עסקים לכל הארץ, ואספקה ביום העסקי עצמו באזורי המרכז.</p></div></div>
+      </div>
+
+      <div class="faq__item reveal" data-d="70">
+        <h3>
+          <button class="faq__q" type="button" aria-expanded="false" aria-controls="a2" id="q2">
+            האם כל המוצרים עם אחריות?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </h3>
+        <div class="faq__panel" id="a2" role="region" aria-labelledby="q2"><div><p>כן. אחריות יצרן לשנתיים ואחריות מכירה מלאה, כולל החלפה או החזר כספי.</p></div></div>
+      </div>
+
+      <div class="faq__item reveal" data-d="140">
+        <h3>
+          <button class="faq__q" type="button" aria-expanded="false" aria-controls="a3" id="q3">
+            אפשר לשלם בהתקנה?
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </h3>
+        <div class="faq__panel" id="a3" role="region" aria-labelledby="q3"><div><p>כן, אפשר לשלם בהעברה, בכרטיס או במקום בהתקנה. צוות ההתקנה שלנו מגיע לבית.</p></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="sec shell lead" id="lead" aria-labelledby="h2l">
+    <div class="lead__grid">
+      <div class="reveal">
+        <span class="eyebrow">קליטת לידים</span>
+        <h2 class="h2" id="h2l">רוצים הצעת מחיר אישית?</h2>
+        <p class="lead">השאירו פרטים קצרים ונחזור אליכם עם המלצה מותאמת לבית ולתקציב.</p>
+        <ul class="perks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>מענה אישי תוך שעות עסקים</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>ללא התחייבות וללא ספאם</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>הצעה הכי זולה שמצאנו לכם</li>
+        </ul>
+      </div>
+
+      <div class="panel reveal" data-d="100">
+        <form id="leadForm" novalidate>
+          <div class="field">
+            <label for="name">שם מלא</label>
+            <input type="text" id="name" name="name" placeholder="למשל: אלי כהן" autocomplete="name" required aria-describedby="nameErr">
+            <p class="err" id="nameErr" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="phone">טלפון</label>
+            <input type="tel" id="phone" name="phone" placeholder="050-0000000" autocomplete="tel" inputmode="tel" required aria-describedby="phoneErr">
+            <p class="err" id="phoneErr" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="email">אימייל</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required aria-describedby="emailErr">
+            <p class="err" id="emailErr" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="interested_in">מה מעניין אותך?</label>
+            <input type="text" id="interested_in" name="interested_in" placeholder="למשל: טלוויזיה ואוזניות" autocomplete="off">
+          </div>
+
+          <button class="btn btn--primary submit" type="submit" id="submitBtn" data-state="idle">
+            <span class="btn__label">שליחת פרטים</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+
+          <p class="formnote">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            הפרטים נשמרים בצורה מאובטחת ומשמשים ליצירת קשר בלבד.
+          </p>
+
+          <p class="status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec shell" id="a11y-statement" aria-labelledby="h2a">
+    <div class="statement reveal">
+      <div class="statement__ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2"/><path d="M4 8.5h16M12 8.5V21M8.5 21l3.5-6 3.5 6"/></svg>
+      </div>
+      <div>
+        <h2 class="h3" id="h2a">הצהרת נגישות</h2>
+        <p>אתר זה נבנה בהתאם לתקן הישראלי לנגישות תכנים באינטרנט, תשע"ח–2013, ול-WCAG 2.1 ברמת AA: ניתן לניווט מקלדת, להגדלת טקסט, לניגודיות גבוהה ולהפעלה עם קורא מסך. לא נמצאו חסרונות מהותיים. להערות ולבקשות נגישות: aa-gear@example.com או 03-123-4567.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="ftr">
+  <div class="shell">
+    <nav class="ftr__links" aria-label="קישורי אתר">
+      <a href="#why">למה אנחנו</a>
+      <a href="#products">מוצרים</a>
+      <a href="#reviews">ביקורות</a>
+      <a href="#faq">שאלות נפוצות</a>
+      <a href="#lead">צור קשר</a>
+      <a href="#a11y-statement">הצהרת נגישות</a>
+    </nav>
+    <p class="muted">© 2026 AA GEAR אלקטרוניקה · כל הזכויות שמורות</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var store = {
+    get: function(k){ try { return localStorage.getItem(k) || ""; } catch(e){ return ""; } },
+    set: function(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+  };
+
+  function setText(on){
+    root.setAttribute("data-text", on ? "lg" : "normal");
+    document.getElementById("tText").setAttribute("aria-pressed", String(on));
+    store.set("aag-text", on ? "1" : "0");
+  }
+  function setContrast(on){
+    root.setAttribute("data-contrast", on ? "high" : "normal");
+    document.getElementById("tContrast").setAttribute("aria-pressed", String(on));
+    store.set("aag-contrast", on ? "1" : "0");
+  }
+  function setMotion(off){
+    root.setAttribute("data-motion", off ? "off" : "auto");
+    document.getElementById("tMotion").setAttribute("aria-pressed", String(off));
+    store.set("aag-motion", off ? "1" : "0");
+  }
+  setText(store.get("aag-text") === "1");
+  setContrast(store.get("aag-contrast") === "1");
+  setMotion(reduced || store.get("aag-motion") === "1");
+
+  document.getElementById("tText").addEventListener("click", function(){ setText(root.getAttribute("data-text") !== "lg"); });
+  document.getElementById("tContrast").addEventListener("click", function(){ setContrast(root.getAttribute("data-contrast") !== "high"); });
+  document.getElementById("tMotion").addEventListener("click", function(){ setMotion(root.getAttribute("data-motion") !== "off"); });
+  window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", function(e){ if(store.get("aag-motion") !== "1") setMotion(e.matches); });
+
+  var burger = document.getElementById("burger");
+  var nav = document.getElementById("nav");
+  burger.addEventListener("click", function(){
+    var open = burger.getAttribute("aria-expanded") === "true";
+    burger.setAttribute("aria-expanded", String(!open));
+    burger.setAttribute("aria-label", open ? "פתח תפריט ניווט" : "סגור תפריט ניווט");
+    nav.classList.toggle("is-open", !open);
+  });
+  nav.addEventListener("click", function(e){
+    if(e.target.closest("a")){ burger.setAttribute("aria-expanded","false"); nav.classList.remove("is-open"); }
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll(".faq__q"), function(btn){
+    btn.addEventListener("click", function(){
+      var item = btn.closest(".faq__item");
+      var open = item.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+  });
+
+  var items = document.querySelectorAll(".reveal");
+  if(root.getAttribute("data-motion") === "off" || !("IntersectionObserver" in window)){
+    Array.prototype.forEach.call(items, function(el){ el.classList.add("is-in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var d = en.target.getAttribute("data-d") || 0;
+        en.target.style.transitionDelay = d + "ms";
+        en.target.classList.add("is-in");
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    Array.prototype.forEach.call(items, function(el){ io.observe(el); });
+  }
+
+  var WEBHOOK = "https://gl00001.oph.st/webhook-test/ErpAILids";
+  var form = document.getElementById("leadForm");
+  var btn = document.getElementById("submitBtn");
+  var label = btn.querySelector(".btn__label");
+  var statusEl = document.getElementById("formStatus");
+  var IDLE = "שליחת פרטים";
+  var RULES = {
+    name: function(v){ return v.trim().length >= 2 ? "" : "נא להזין שם מלא."; },
+    phone: function(v){ return /^[0-9+\-()\s]{9,15}$/.test(v.trim()) ? "" : "נא להזין מספר טלפון תקין."; },
+    email: function(v){ return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(v.trim()) ? "" : "נא להזין כתובת אימייל תקינה."; }
+  };
+  var ICONS = {
+    ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+    err: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M12 7v6M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>'
+  };
+
+  function fieldErr(name, msg){
+    var input = form.elements[name];
+    var err = document.getElementById(name + "Err");
+    err.textContent = msg;
+    err.classList.toggle("is-on", !!msg);
+    input.setAttribute("aria-invalid", msg ? "true" : "false");
+    return !msg;
+  }
+  function setStatus(kind, msg){
+    statusEl.setAttribute("data-kind", kind);
+    statusEl.innerHTML = (kind === "ok" ? ICONS.ok : ICONS.err) + "<span></span>";
+    statusEl.querySelector("span").textContent = msg;
+    statusEl.classList.add("is-on");
+  }
+  function setBtn(state, text){
+    btn.setAttribute("data-state", state);
+    if(text) label.textContent = text;
+    btn.setAttribute("aria-busy", state === "loading" ? "true" : "false");
+  }
+  Array.prototype.forEach.call(["name","phone","email"], function(n){
+    form.elements[n].addEventListener("blur", function(){ fieldErr(n, RULES[n](this.value)); });
+    form.elements[n].addEventListener("input", function(){
+      if(this.getAttribute("aria-invalid") === "true" && !RULES[n](this.value)) fieldErr(n, "");
+    });
+  });
+
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var valid = true, first = null;
+    ["name","phone","email"].forEach(function(n){
+      if(!fieldErr(n, RULES[n](form.elements[n].value))){ valid = false; if(!first) first = form.elements[n]; }
+    });
+    if(!valid){ setStatus("err", "חלק מהשדות חסרים או לא תקינים."); if(first) first.focus(); return; }
+
+    var payload = {
+      name: form.elements.name.value.trim(),
+      phone: form.elements.phone.value.trim(),
+      email: form.elements.email.value.trim(),
+      interested_in: form.elements.interested_in.value.trim() || "General"
+    };
+
+    setBtn("loading", "שולחים…");
+    setStatus("ok", "שולחים את הפרטים, רגע…");
+
+    fetch(WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function(res){
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      return res.text().then(function(t){
+        var data = {};
+        try { data = t ? JSON.parse(t) : {}; } catch(e){ data = { raw: t }; }
+        return data;
+      });
+    }).then(function(data){
+      var state = String(data.state || data.State || data.status || data.result || data.LeadStatus || data.message || data.raw || "").toLowerCase().replace(/[^a-z]/g, "");
+      if(state.indexOf("exist") > -1 || state.indexOf("duplicate") > -1){
+        setBtn("warn", "כבר קיים אצלנו");
+        setStatus("err", "הליד כבר קיים אצלנו, ניצור איתך קשר בקרוב.");
+      } else {
+        setBtn("done", "נשלח בהצלחה");
+        setStatus("ok", "תודה! הפרטים נקלטו, נחזור אליך מיד.");
+        form.reset();
+      }
+      setTimeout(function(){ setBtn("idle", IDLE); }, 3600);
+    }).catch(function(){
+      setBtn("idle", IDLE);
+      setStatus("err", "לא הצלחנו לשלוח כרגע. נסו שוב או התקשרו 03-123-4567.");
+    });
+  });
+
+  var pl = document.getElementById("preloader");
+  var fill = document.getElementById("plFill");
+  var txt = document.getElementById("plTxt");
+  var pct = 0, loaded = false;
+  function tick(){
+    if(loaded) return;
+    pct = Math.min(pct + (pct < 55 ? 14 : 7), 92);
+    fill.style.transform = "scaleX(" + (pct / 100) + ")";
+    txt.textContent = "טוענים את החנות… " + pct + "%";
+    setTimeout(tick, 130);
+  }
+  tick();
+  function done(){
+    if(loaded) return;
+    loaded = true;
+    pct = 100;
+    fill.style.transform = "scaleX(1)";
+    txt.textContent = "הכול מוכן, נכנסים!";
+    setTimeout(function(){
+      pl.classList.add("is-hidden");
+      pl.setAttribute("aria-hidden", "true");
+      setTimeout(function(){ pl.style.display = "none"; }, 340);
+    }, 220);
+  }
+  if(document.readyState === "complete"){ setTimeout(done, 260); }
+  else { window.addEventListener("load", function(){ setTimeout(done, 260); }); }
+  setTimeout(done, 3800);
+})();
+</script>
+</body>
+</html>

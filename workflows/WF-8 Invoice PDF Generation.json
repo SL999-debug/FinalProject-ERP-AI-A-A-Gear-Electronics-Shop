@@ -1,0 +1,770 @@
+{
+  "name": "WF-8 Invoice PDF Generation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 59
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -448,
+        -96
+      ],
+      "id": "228bcac1-abc0-47ed-9c73-2503015a5338",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblDB9aqEOvlrpFH8",
+          "mode": "list",
+          "cachedResultName": "Invoices",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblDB9aqEOvlrpFH8"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Uploaded",
+            "PdfUrl": "={{ $json.webViewLink }}",
+            "InvoiceNumber": "={{ $('Search Invoice').item.json.fields.InvoiceNumber }}"
+          },
+          "matchingColumns": [
+            "InvoiceNumber"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "InvoiceNumber",
+              "displayName": "InvoiceNumber",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "CustomerId",
+              "displayName": "CustomerId",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "InvoiceType",
+              "displayName": "InvoiceType",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Amount",
+              "displayName": "Amount",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Vat",
+              "displayName": "Vat",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Products",
+              "displayName": "Products",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "PdfUrl",
+              "displayName": "PdfUrl",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Created",
+              "displayName": "Created",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1136,
+        -256
+      ],
+      "id": "c7e5c755-ec31-4ad9-a6db-0e740715cb54",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1LPn7ONfDRZtJqNJivy2j67aDSoi57i5u",
+          "mode": "list",
+          "cachedResultName": "FinalProjectInvoicesFiles",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1LPn7ONfDRZtJqNJivy2j67aDSoi57i5u"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        912,
+        -256
+      ],
+      "id": "1b6997a1-ec7c-4ac4-981c-662660b1fa92",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "5arIzshML8SxVktE",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "רץ כל דקה ושולף חשבונית 1 עם סטסוס \nPending",
+        "height": 96,
+        "width": 166,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -224
+      ],
+      "id": "fe84866f-4cc4-4287-8cca-70f5b43a5b02",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "שולף חשבונית 1 \nPending עם סטסוס \nPending",
+        "height": 96,
+        "width": 166,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -224
+      ],
+      "id": "fe696b31-54be-43da-b7da-4f69ad460794",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "מטמיע מידה על חשבונית לתוך תבנית מעוצבת",
+        "height": 96,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -368
+      ],
+      "id": "19bd1ee4-ab8a-4ff4-9faf-0dd342bb28ff",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "PDF ל HTML ממיר\n\n",
+        "height": 96,
+        "width": 166,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        656,
+        -368
+      ],
+      "id": "822043f5-6fc7-4561-b953-640341ca39ab",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": " GoogleDrive שומר קובץ ב  \n\n",
+        "height": 96,
+        "width": 214,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        848,
+        -368
+      ],
+      "id": "5bcbc3e0-f3f0-4a24-a050-6eed93811f14",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "שומר קישור להורדת קובץ ומעדכן סטטוס לנשלח\n\n",
+        "height": 96,
+        "width": 198,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        -368
+      ],
+      "id": "14d41b65-96b7-4740-9f4b-1edddfdd58ea",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Search Invoice').item.json.fields.InvoiceType }}",
+                    "rightValue": "חשבונית",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "1ca0ac54-5f4d-40fd-96c0-259c86c40128"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "ee3d03f9-7780-427c-8b90-7525dd087fff",
+                    "leftValue": "={{ $('Search Invoice').item.json.fields.InvoiceType }}",
+                    "rightValue": "חשבונית מס",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2e4559af-c1df-4985-88e4-9206c4bb8fa7",
+                    "leftValue": "={{ $('Search Invoice').item.json.fields.InvoiceType }}",
+                    "rightValue": "קבלה",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        -112
+      ],
+      "id": "6585bf72-e643-48f5-9cdb-9fa063e5cff7",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "content": " בודק סוג החשבונית ומנתב לשבלונת מסמך מתאים",
+        "height": 96,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        -224
+      ],
+      "id": "5c5aec18-982f-49c9-83b7-3dcdf7c7e2bc",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html lang=\"he\" dir=\"rtl\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>AI Gear Electronics</title>\n    <style>\n        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');\n        \n        @page {\n            size: A4;\n            margin: 20mm;\n        }\n        \n        body {\n            font-family: 'Rubik', sans-serif;\n            color: #333;\n            line-height: 1.4;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n            font-size: 14px;\n        }\n        \n        .receipt-container {\n            width: 100%;\n            max-width: 800px;\n            margin: 0 auto;\n        }\n        \n        /* Header Section */\n        .header {\n            display: flex;\n            justify-content: space-between;\n            align-items: flex-start;\n            border-bottom: 2px solid #3b82f6;\n            padding-bottom: 20px;\n            margin-bottom: 30px;\n        }\n        \n        .company-details h1 {\n            margin: 0 0 5px 0;\n            color: #1e3a8a;\n            font-size: 28px;\n            font-weight: 700;\n        }\n        \n        .company-details p {\n            margin: 3px 0;\n            color: #4b5563;\n        }\n        \n        .receipt-title {\n            text-align: left;\n        }\n        \n        .receipt-title h2 {\n            margin: 0 0 10px 0;\n            color: #1e3a8a;\n            font-size: 32px;\n            font-weight: 700;\n            letter-spacing: 1px;\n        }\n        \n        /* Meta Info Grid */\n        .meta-grid {\n            display: grid;\n            grid-template-columns: repeat(2, 1fr);\n            gap: 20px;\n            margin-bottom: 30px;\n            background-color: #f8fafc;\n            padding: 15px;\n            border-radius: 8px;\n            border: 1px solid #e2e8f0;\n        }\n        \n        .meta-block h3 {\n            margin: 0 0 8px 0;\n            color: #1e3a8a;\n            font-size: 16px;\n            border-bottom: 1px solid #cbd5e1;\n            padding-bottom: 4px;\n        }\n        \n        .meta-block p {\n            margin: 4px 0;\n            color: #334155;\n        }\n        \n        .meta-block span {\n            font-weight: 500;\n        }\n        \n        /* Items Table */\n        table {\n            width: 100%;\n            border-collapse: collapse;\n            margin-bottom: 30px;\n        }\n        \n        th {\n            background-color: #1e3a8a;\n            color: white;\n            text-align: right;\n            padding: 12px;\n            font-weight: 500;\n        }\n        \n        th:last-child, td:last-child {\n            text-align: left;\n        }\n        \n        td {\n            padding: 12px;\n            border-bottom: 1px solid #e2e8f0;\n            color: #334155;\n        }\n        \n        .tr-alternate:nth-child(even) {\n            background-color: #f8fafc;\n        }\n        \n        /* Summary Section */\n        .summary-container {\n            display: flex;\n            justify-content: space-between;\n            align-items: flex-start;\n            margin-top: 20px;\n        }\n        \n        .payment-info {\n            width: 45%;\n            background-color: #f1f5f9;\n            padding: 15px;\n            border-radius: 8px;\n            border: 1px solid #e2e8f0;\n        }\n        \n        .payment-info h4 {\n            margin: 0 0 8px 0;\n            color: #1e3a8a;\n            font-size: 15px;\n        }\n        \n        .payment-info p {\n            margin: 4px 0;\n            color: #475569;\n        }\n        \n        .totals {\n            width: 45%;\n        }\n        \n        .total-row {\n            display: flex;\n            justify-content: space-between;\n            padding: 8px 0;\n            border-bottom: 1px solid #e2e8f0;\n            color: #475569;\n        }\n        \n        .total-row.grand-total {\n            border-bottom: none;\n            padding-top: 12px;\n            font-size: 18px;\n            font-weight: 700;\n            color: #1e3a8a;\n        }\n        \n        /* Footer */\n        .footer {\n            margin-top: 60px;\n            text-align: center;\n            color: #94a3b8;\n            font-size: 12px;\n            border-top: 1px solid #e2e8f0;\n            padding-top: 15px;\n        }\n        \n        /* Print optimization */\n        @media print {\n            body {\n                background-color: #fff;\n                -webkit-print-color-adjust: exact;\n                print-color-adjust: exact;\n            }\n            .receipt-container {\n                max-width: 100%;\n            }\n        }\n    </style>\n</head>\n<body>\n\n<div class=\"receipt-container\">\n    <!-- Header -->\n    <div class=\"header\">\n        <div class=\"company-details\">\n            <h1>AI Gear Electronics</h1>\n\t<p>מוצרי אלקטרוניקה מקוריים באחריות יבואן רשמי</p>\n</br>\n            <p>ח.פ. / ע.מ: 5123456789</p>\n            <p>רחוב דרך מנחם בגין 889, תל אביב</p>\n            <p>טלפון: 03-555-1234 | דוא\"ל: info@aigearelectronics.co.il</p>\n        </div>\n        <div class=\"receipt-title\">\n            <h2>{{ $('Search Invoice').item.json.fields.InvoiceType }}</h2>\n            <p>מקור</p>\n        </div>\n    </div>\n\n    <!-- Meta Information -->\n    <div class=\"meta-grid\">\n        <div class=\"meta-block\">\n            <h3>פרטי מסמך</h3>\n            <p><span>מספר חשבונית:</span> {{ $('Search Invoice').item.json.fields.InvoiceNumber }}</p>\n            <p><span>תאריך:</span> {{ $('Search Invoice').item.json.fields.Created }}</p>\n            <p><span>טלפון:</span> {{ $('Search Customer').item.json.fields.Phone }}</p>\n        </div>\n        <div class=\"meta-block\">\n            <h3>לכבוד</h3>\n            <p><span>שם הלקוח:</span> {{ $('Search Customer').item.json.fields.Name }}</p>\n            <p><span>חברה:</span> {{ $('Search Customer').item.json.fields.Company }}</p>\n            <p><span>כתובת מייל:</span> {{ $('Search Customer').item.json.fields.Mail }}</p>\n        </div>\n    </div>\n\n\n    <!-- Items Table -->\n    <table>\n        <thead>\n            <tr>\n                <th style=\"width: 10%;\">#</th>\n                <th style=\"width: 45%;\">תיאור הפריט</th>\n                <th style=\"width: 15%;\">כמות</th>\n                <th style=\"width: 15%;\">מחיר יחידה</th>\n                <th style=\"width: 15%;\">סה\"כ</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr class=\"tr-alternate\">\n                <td>1</td>\n                <td>{{ $json.fields.Name }}</td>\n                <td>1</td>\n                <td>₪{{ $json.fields.Price }}</td>\n                <td>₪{{ $json.fields.Price }}</td>\n            </tr>\n\n\n        </tbody>\n    </table>\n\n    <!-- Summary -->\n    <div class=\"summary-container\">\n        <div class=\"payment-info\">\n            <h4>פירוט תשלום:</h4>\n            <p>שולם באמצעות כרטיס אשראי (ויזה)</p>\n            <p>ארבע ספרות אחרונות: 1234</p>\n            <p>אישור עסקה מס': 987654</p>\n        </div>\n        <div class=\"totals\">\n            <div class=\"total-row\">\n                <span>סה\"כ לפני מע\"מ:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Amount }}</span>\n            </div>\n            <div class=\"total-row\">\n                <span>מע\"מ (18%):</span>\n                <span>₪0.0</span>\n            </div>\n            <div class=\"total-row grand-total\">\n                <span>סה\"כ לתשלום:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Amount }}</span>\n            </div>\n        </div>\n    </div>\n\n    <!-- Footer -->\n    <div class=\"footer\">\n        <p>תודה שקניתם ב-AI Gear Electronics!</p>\n        <p>הסחורה נשארת בבעלות המוכר עד לתשלום המלא.</p>\n    </div>\n</div>\n\n</body>\n</html>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        -256
+      ],
+      "id": "5a107ab2-93d2-4594-a9f0-cf1545735eeb",
+      "name": "HTML Invoice"
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html lang=\"he\" dir=\"rtl\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>AI Gear Electronics</title>\n    <style>\n        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');\n        \n        @page {\n            size: A4;\n            margin: 20mm;\n        }\n        \n        body {\n            font-family: 'Rubik', sans-serif;\n            color: #333;\n            line-height: 1.4;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n            font-size: 14px;\n        }\n        \n        .receipt-container {\n            width: 100%;\n            max-width: 800px;\n            margin: 0 auto;\n        }\n        \n        /* Header Section */\n        .header {\n            display: flex;\n            justify-content: space-between;\n            align-items: flex-start;\n            border-bottom: 2px solid #3b82f6;\n            padding-bottom: 20px;\n            margin-bottom: 30px;\n        }\n        \n        .company-details h1 {\n            margin: 0 0 5px 0;\n            color: #1e3a8a;\n            font-size: 28px;\n            font-weight: 700;\n        }\n        \n        .company-details p {\n            margin: 3px 0;\n            color: #4b5563;\n        }\n        \n        .receipt-title {\n            text-align: left;\n        }\n        \n        .receipt-title h2 {\n            margin: 0 0 10px 0;\n            color: #1e3a8a;\n            font-size: 32px;\n            font-weight: 700;\n            letter-spacing: 1px;\n        }\n        \n        /* Meta Info Grid */\n        .meta-grid {\n            display: grid;\n            grid-template-columns: repeat(2, 1fr);\n            gap: 20px;\n            margin-bottom: 30px;\n            background-color: #f8fafc;\n            padding: 15px;\n            border-radius: 8px;\n            border: 1px solid #e2e8f0;\n        }\n        \n        .meta-block h3 {\n            margin: 0 0 8px 0;\n            color: #1e3a8a;\n            font-size: 16px;\n            border-bottom: 1px solid #cbd5e1;\n            padding-bottom: 4px;\n        }\n        \n        .meta-block p {\n            margin: 4px 0;\n            color: #334155;\n        }\n        \n        .meta-block span {\n            font-weight: 500;\n        }\n        \n        /* Items Table */\n        table {\n            width: 100%;\n            border-collapse: collapse;\n            margin-bottom: 30px;\n        }\n        \n        th {\n            background-color: #1e3a8a;\n            color: white;\n            text-align: right;\n            padding: 12px;\n            font-weight: 500;\n        }\n        \n        th:last-child, td:last-child {\n            text-align: left;\n        }\n        \n        td {\n            padding: 12px;\n            border-bottom: 1px solid #e2e8f0;\n            color: #334155;\n        }\n        \n        .tr-alternate:nth-child(even) {\n            background-color: #f8fafc;\n        }\n        \n        /* Summary Section */\n        .summary-container {\n            display: flex;\n            justify-content: space-between;\n            align-items: flex-start;\n            margin-top: 20px;\n        }\n        \n        .payment-info {\n            width: 45%;\n            background-color: #f1f5f9;\n            padding: 15px;\n            border-radius: 8px;\n            border: 1px solid #e2e8f0;\n        }\n        \n        .payment-info h4 {\n            margin: 0 0 8px 0;\n            color: #1e3a8a;\n            font-size: 15px;\n        }\n        \n        .payment-info p {\n            margin: 4px 0;\n            color: #475569;\n        }\n        \n        .totals {\n            width: 45%;\n        }\n        \n        .total-row {\n            display: flex;\n            justify-content: space-between;\n            padding: 8px 0;\n            border-bottom: 1px solid #e2e8f0;\n            color: #475569;\n        }\n        \n        .total-row.grand-total {\n            border-bottom: none;\n            padding-top: 12px;\n            font-size: 18px;\n            font-weight: 700;\n            color: #1e3a8a;\n        }\n        \n        /* Footer */\n        .footer {\n            margin-top: 60px;\n            text-align: center;\n            color: #94a3b8;\n            font-size: 12px;\n            border-top: 1px solid #e2e8f0;\n            padding-top: 15px;\n        }\n        \n        /* Print optimization */\n        @media print {\n            body {\n                background-color: #fff;\n                -webkit-print-color-adjust: exact;\n                print-color-adjust: exact;\n            }\n            .receipt-container {\n                max-width: 100%;\n            }\n        }\n    </style>\n</head>\n<body>\n\n<div class=\"receipt-container\">\n    <!-- Header -->\n    <div class=\"header\">\n        <div class=\"company-details\">\n            <h1>AI Gear Electronics</h1>\n\t<p>מוצרי אלקטרוניקה מקוריים באחריות יבואן רשמי</p>\n</br>\n            <p>ח.פ. / ע.מ: 5123456789</p>\n            <p>רחוב דרך מנחם בגין 889, תל אביב</p>\n            <p>טלפון: 03-555-1234 | דוא\"ל: info@aigearelectronics.co.il</p>\n        </div>\n        <div class=\"receipt-title\">\n            <h2>{{ $('Search Invoice').item.json.fields.InvoiceType }}</h2>\n            <p>מקור</p>\n        </div>\n    </div>\n\n    <!-- Meta Information -->\n    <div class=\"meta-grid\">\n        <div class=\"meta-block\">\n            <h3>פרטי מסמך</h3>\n            <p><span>ד מספר {{ $('Search Invoice').item.json.fields.InvoiceType }}:</span> {{ $('Search Invoice').item.json.fields.InvoiceNumber }}</p>\n            <p><span>תאריך:</span> {{ $('Search Invoice').item.json.fields.Created }}</p>\n            <p><span>טלפון:</span> {{ $('Search Customer').item.json.fields.Phone }}</p>\n        </div>\n        <div class=\"meta-block\">\n            <h3>לכבוד</h3>\n            <p><span>שם הלקוח:</span> {{ $('Search Customer').item.json.fields.Name }}</p>\n            <p><span>חברה:</span> {{ $('Search Customer').item.json.fields.Company }}</p>\n            <p><span>כתובת מייל:</span> {{ $('Search Customer').item.json.fields.Mail }}</p>\n        </div>\n    </div>\n\n\n    <!-- Items Table -->\n    <table>\n        <thead>\n            <tr>\n                <th style=\"width: 10%;\">#</th>\n                <th style=\"width: 45%;\">תיאור הפריט</th>\n                <th style=\"width: 15%;\">כמות</th>\n                <th style=\"width: 15%;\">מחיר יחידה</th>\n                <th style=\"width: 15%;\">סה\"כ</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr class=\"tr-alternate\">\n                <td>1</td>\n                <td>{{ $json.fields.Name }}</td>\n                <td>1</td>\n                <td>₪{{ $json.fields.Price }}</td>\n                <td>₪{{ $json.fields.Price }}</td>\n            </tr>\n\n\n        </tbody>\n    </table>\n\n    <!-- Summary -->\n    <div class=\"summary-container\">\n        <div class=\"payment-info\">\n            <h4>פירוט תשלום:</h4>\n            <p>שולם באמצעות כרטיס אשראי (ויזה)</p>\n            <p>ארבע ספרות אחרונות: 1234</p>\n            <p>אישור עסקה מס': 987654</p>\n        </div>\n        <div class=\"totals\">\n            <div class=\"total-row\">\n                <span>סה\"כ לפני מע\"מ:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Amount }}</span>\n            </div>\n            <div class=\"total-row\">\n                <span>מע\"מ (18%):</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Vat }}</span>\n            </div>\n            <div class=\"total-row grand-total\">\n                <span>סה\"כ לתשלום:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Total }}</span>\n            </div>\n        </div>\n    </div>\n\n    <!-- Footer -->\n    <div class=\"footer\">\n        <p>תודה שקניתם ב-AI Gear Electronics!</p>\n        <p>הסחורה נשארת בבעלות המוכר עד לתשלום המלא.</p>\n    </div>\n</div>\n\n</body>\n</html>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        -96
+      ],
+      "id": "809c1253-e44e-49a9-8f04-08eb0763be1c",
+      "name": "HTML InvVat"
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html lang=\"he\" dir=\"rtl\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>AI Gear Electronics</title>\n    <style>\n        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');\n        \n        @page {\n            size: A4;\n            margin: 20mm;\n        }\n        \n        body {\n            font-family: 'Rubik', sans-serif;\n            color: #333;\n            line-height: 1.4;\n            margin: 0;\n            padding: 0;\n            background-color: #ffffff;\n            font-size: 12px;\n        }\n        \n        .receipt-container {\n            width: 100%;\n            max-width: 800px;\n            margin: 0 auto;\n        }\n        \n        /* Header Section */\n        .header {\n            display: flex;\n            justify-content: space-between;\n            align-items: flex-start;\n            border-bottom: 2px solid #3b82f6;\n            padding-bottom: 20px;\n            margin-bottom: 30px;\n        }\n        \n        .company-details h1 {\n            margin: 0 0 5px 0;\n            color: #1e3a8a;\n            font-size: 28px;\n            font-weight: 700;\n        }\n        \n        .company-details p {\n            margin: 3px 0;\n            color: #4b5563;\n        }\n        \n        .receipt-title {\n            text-align: left;\n        }\n        \n        .receipt-title h2 {\n            margin: 0 0 10px 0;\n            color: #1e3a8a;\n            font-size: 32px;\n            font-weight: 700;\n            letter-spacing: 1px;\n        }\n        \n        /* Meta Info Grid */\n        .meta-grid {\n            display: grid;\n            grid-template-columns: repeat(2, 1fr);\n            gap: 20px;\n            margin-bottom: 30px;\n            background-color: #f8fafc;\n            padding: 15px;\n            border-radius: 8px;\n            border: 1px solid #e2e8f0;\n        }\n        \n        .meta-block h3 {\n            margin: 0 0 8px 0;\n            color: #1e3a8a;\n            font-size: 14px;\n            border-bottom: 1px solid #cbd5e1;\n            padding-bottom: 4px;\n        }\n        \n        .meta-block p {\n            margin: 4px 0;\n            color: #334155;\n        }\n        \n        .meta-block span {\n            font-weight: 500;\n        }\n        \n        /* Items Table */\n        table {\n            width: 100%;\n            border-collapse: collapse;\n            margin-bottom: 10px;\n        }\n        \n        th {\n            background-color: #1e3a8a;\n            color: white;\n            text-align: right;\n            padding: 12px;\n            font-weight: 500;\n        }\n        \n        th:last-child, td:last-child {\n            text-align: left;\n        }\n        \n        td {\n            padding: 12px;\n            border-bottom: 1px solid #e2e8f0;\n            color: #334155;\n        }\n        \n        .tr-alternate:nth-child(even) {\n            background-color: #f8fafc;\n        }\n        \n        /* Summary Section */\n        .summary-container {\n            display: flex;\n            justify-content: space-between;\n            align-items: flex-start;\n            margin-top: 10px;\n        }\n        \n        .payment-info {\n            width: 45%;\n            background-color: #f1f5f9;\n            padding: 15px;\n            border-radius: 8px;\n            border: 1px solid #e2e8f0;\n        }\n        \n        .payment-info h4 {\n            margin: 0 0 8px 0;\n            color: #1e3a8a;\n            font-size: 15px;\n        }\n        \n        .payment-info p {\n            margin: 4px 0;\n            color: #475569;\n        }\n        \n        .totals {\n            width: 45%;\n        }\n        \n        .total-row {\n            display: flex;\n            justify-content: space-between;\n            padding: 8px 0;\n            border-bottom: 1px solid #e2e8f0;\n            color: #475569;\n        }\n        \n        .total-row.grand-total {\n            border-bottom: none;\n            padding-top: 12px;\n            font-size: 18px;\n            font-weight: 700;\n            color: #1e3a8a;\n        }\n        \n        /* Footer */\n        .footer {\n            margin-top: 20px;\n            text-align: center;\n            color: #94a3b8;\n            font-size: 12px;\n            border-top: 1px solid #e2e8f0;\n            padding-top: 15px;\n        }\n        \n        /* Print optimization */\n        @media print {\n            body {\n                background-color: #fff;\n                -webkit-print-color-adjust: exact;\n                print-color-adjust: exact;\n            }\n            .receipt-container {\n                max-width: 100%;\n            }\n        }\n    </style>\n</head>\n<body>\n\n<div class=\"receipt-container\">\n    <!-- Header -->\n    <div class=\"header\">\n        <div class=\"company-details\">\n            <h1>AI Gear Electronics</h1>\n\t<p>מוצרי אלקטרוניקה מקוריים באחריות יבואן רשמי</p>\n</br>\n            <p>ח.פ. / ע.מ: 5123456789</p>\n            <p>רחוב דרך מנחם בגין 889, תל אביב</p>\n            <p>טלפון: 03-555-1234 | דוא\"ל: info@aigearelectronics.co.il</p>\n        </div>\n        <div class=\"receipt-title\">\n            <h2>{{ $('Search Invoice').item.json.fields.InvoiceType }}</h2>\n            <p>מקור</p>\n        </div>\n    </div>\n\n    <!-- Meta Information -->\n    <div class=\"meta-grid\">\n        <div class=\"meta-block\">\n            <h3>פרטי מסמך</h3>\n            <p><span>מספר קבלה:</span> {{ $('Search Invoice').item.json.fields.InvoiceNumber }}</p>\n            <p><span>תאריך:</span> {{ $('Search Invoice').item.json.fields.Created }}</p>\n            <p><span>טלפון:</span> {{ $('Search Customer').item.json.fields.Phone }}</p>\n        </div>\n        <div class=\"meta-block\">\n            <h3>לכבוד</h3>\n            <p><span>שם הלקוח:</span> {{ $('Search Customer').item.json.fields.Name }}</p>\n            <p><span>חברה:</span> {{ $('Search Customer').item.json.fields.Company }}</p>\n            <p><span>כתובת מייל:</span> {{ $('Search Customer').item.json.fields.Mail }}</p>\n        </div>\n    </div>\n\n\n\n    <!-- Summary -->\n    <div class=\"summary-container\">\n        <div class=\"payment-info\">\n            <h4>פירוט תשלום:</h4>\n            <p>שולם באמצעות כרטיס אשראי (ויזה)</p>\n            <p>ארבע ספרות אחרונות: 1234</p>\n            <p>אישור עסקה מס': 987654</p>\n        </div>\n        <div class=\"totals\">\n            <div class=\"total-row\">\n                <span>סה\"כ לפני מע\"מ:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Amount }}</span>\n            </div>\n            <div class=\"total-row\">\n                <span>מע\"מ (18%):</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Vat }}</span>\n            </div>\n            <div class=\"total-row grand-total\">\n                <span>סה\"כ לתשלום:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Total }}</span>\n            </div>\n        </div>\n\n    </div>\n\n<!-- Kabala -->\n\n\n    <table>\n        <thead>\n            <tr>\n\n                <th style=\"width: 15%;\"><center>קבלה מס : {{ $('Search Invoice').item.json.fields.InvoiceNumber }}</center></th>\n\n            </tr>\n        </thead>\n       </table> \n<div class=\"summary-container\">\n\n        <div class=\"totals\">\n            <div class=\"total-row\">\n                <span>סה\"כ לפני מע\"מ:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Amount }}</span>\n            </div>\n            <div class=\"total-row\">\n                <span>מע\"מ (18%):</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Vat }}</span>\n            </div>\n            <div class=\"total-row grand-total\">\n                <span>סה\"כ שולם:</span>\n                <span>₪{{ $('Search Invoice').item.json.fields.Total }}</span>\n            </div>\n        </div>\n\n    </div>\n\n            </tr>\n\n\n        </tbody>\n    </table>\n</div>\n\n    <!-- Footer -->\n    <div class=\"footer\">\n        <p>תודה שקניתם ב-AI Gear Electronics!</p>\n        <p>הסחורה נשארת בבעלות המוכר עד לתשלום המלא.</p>\n    </div>\n</div>\n\n</body>\n</html>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        64
+      ],
+      "id": "f79e9a40-7ac8-4e75-b850-74fba011cdda",
+      "name": "HTML Reciept"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblDB9aqEOvlrpFH8",
+          "mode": "list",
+          "cachedResultName": "Invoices",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblDB9aqEOvlrpFH8"
+        },
+        "filterByFormula": "({Status} = 'Pending')",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -240,
+        -96
+      ],
+      "id": "bdaebbe3-73cb-46d9-acab-49a84cf1f754",
+      "name": "Search Invoice",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblAlp99NMykH5PcS",
+          "mode": "list",
+          "cachedResultName": "Customers",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblAlp99NMykH5PcS"
+        },
+        "filterByFormula": "=({CustomerId} = '{{ $json.fields.CustomerId }}')",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -48,
+        -96
+      ],
+      "id": "f99d48ba-6945-434f-a0a0-d4ef5162be26",
+      "name": "Search Customer",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "htmlToPdf",
+        "html": "={{ $json.html }}",
+        "outputFilenamePdf": "={{ $('Search Invoice').item.json.fields.InvoiceNumber }}.pdf"
+      },
+      "type": "@custom-js/n8n-nodes-pdf-toolkit-v2.pdfToolkit",
+      "typeVersion": 1,
+      "position": [
+        688,
+        -256
+      ],
+      "id": "3b550ab9-a6c8-4ea1-8e91-c1fae9ec298a",
+      "name": "Convert HTML to PDF",
+      "notesInFlow": false,
+      "credentials": {
+        "customJsApi": {
+          "id": "Y5gri2jijylOzOvx",
+          "name": "CustomJS account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl5mHOY0Wkor27Mm",
+          "mode": "list",
+          "cachedResultName": "Products",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tbl5mHOY0Wkor27Mm"
+        },
+        "filterByFormula": "=({SKU} = '{{ $('Search Invoice').item.json.fields.Products }}')",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        -96
+      ],
+      "id": "a86cd2de-1bef-4707-a2b0-a49282673413",
+      "name": "Search Product",
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "שולף מחיר מוצר",
+        "height": 96,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        80,
+        -224
+      ],
+      "id": "284306ae-5fe0-4425-8d1d-0188e2453c71",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "שולף מידה על לקוח",
+        "height": 96,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -224
+      ],
+      "id": "d57a5865-f34b-4fa7-a19f-a817e3e1cde1",
+      "name": "Sticky Note8"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Search Invoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "HTML Invoice",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTML InvVat",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTML Reciept",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML Invoice": {
+      "main": [
+        [
+          {
+            "node": "Convert HTML to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML InvVat": {
+      "main": [
+        [
+          {
+            "node": "Convert HTML to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML Reciept": {
+      "main": [
+        [
+          {
+            "node": "Convert HTML to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Invoice": {
+      "main": [
+        [
+          {
+            "node": "Search Customer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Customer": {
+      "main": [
+        [
+          {
+            "node": "Search Product",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert HTML to PDF": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Product": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5cb32040-4587-4aa6-9c4f-d069c6414a5c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "leIdWp92gLNwdmgs",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

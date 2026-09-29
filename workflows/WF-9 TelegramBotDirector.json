@@ -1,0 +1,561 @@
+{
+  "name": "WF-9 TelegramBotDirector",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -464,
+        96
+      ],
+      "id": "49c484ec-d5bd-4d59-90b9-2cd380106f67",
+      "name": "Telegram Trigger",
+      "webhookId": "41ce06a9-abaf-4a87-b9b0-f801add0374d",
+      "credentials": {
+        "telegramApi": {
+          "id": "KQbdiMKVvfyjv7VK",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=הי, {{ $('Telegram Trigger').item.json.message.from.first_name }}\n{{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        976,
+        0
+      ],
+      "id": "fb9f112e-8998-496e-96ca-e5af0229ffe8",
+      "name": "Send a text messageToDirector",
+      "webhookId": "a2551397-6f61-48b9-9de3-7a0257467cc9",
+      "credentials": {
+        "telegramApi": {
+          "id": "KQbdiMKVvfyjv7VK",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9ce5a55a-15b9-43e3-af7c-761d963f273a",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": "=967078186",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        96
+      ],
+      "id": "791c3125-579f-491a-a522-2efdd8d67917",
+      "name": "Check If Owner Talks"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}\n{{ $('Telegram Trigger').item.json.message.text }}\n{{ $json.sum_Incomes_Total }}\n{{ $('Sum Debt').item.json.sum_DebtTotal }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant for Director of Electronic online shop, answering about products, clients' company policies, warranty, working hours, tasks, invoices,and other data from Airtable base:ERP AI FinalProject\nIf you asked how much unpaid invoices total use this data:\nסה\"כ סכום שהלקוחות חייבים לנו:{{ $('Sum Debt').item.json.sum_DebtTotal }}ש\"ח\nIf you asked about total income, use:{{ $json.sum_Incomes_Total }} ש\"ח"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        640,
+        0
+      ],
+      "id": "4edb6099-2497-46af-a8f8-69724b85cb1e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        640,
+        288
+      ],
+      "id": "c1820f9f-e9fe-4d50-8f2a-47ea57cd194f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Q8zNgvOFi62z0bJ5",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7f182bd-a1c5-4deb-8c24-2649560e8821",
+              "name": "DebtTotal",
+              "value": "={{ $json.fields.Total }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        144,
+        0
+      ],
+      "id": "4a9f13bd-f664-4998-a967-816fff1c50eb",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eb14c773-f91e-4ee7-a78d-a36c47d29ec8",
+              "name": "Incomes_Total",
+              "value": "={{ $json.fields.Total }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        432,
+        0
+      ],
+      "id": "04ef3839-939e-4e0d-9bf3-d8dece5fdbfb",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "טריגר ממתין להודעה \nTelegram ב",
+        "height": 96,
+        "width": 160,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -16
+      ],
+      "id": "519ec1a6-d872-4d89-aadc-0a746f37aa8f",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "בודק שפונים הבעלים  ID לפי ה\nTelegram ב",
+        "height": 96,
+        "width": 160,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        -16
+      ],
+      "id": "929a9d8c-c296-4569-910e-b63b57201159",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl9fN0FkGIsBB5RS",
+          "mode": "list",
+          "cachedResultName": "Receipts",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tbl9fN0FkGIsBB5RS"
+        },
+        "returnAll": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        288,
+        0
+      ],
+      "id": "c1e7fb73-e83d-448f-8c92-32bdaa71b6f8",
+      "name": "Search Paid Reciepts",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "DebtTotal"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        -96
+      ],
+      "id": "9515ec5d-fbad-4727-8fa1-32af96629d23",
+      "name": "Sum Debt"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "Incomes_Total"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        432,
+        -96
+      ],
+      "id": "83b5e5c0-9e6d-4ebf-9fd7-614751d02ca7",
+      "name": "Sum Incomes"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblDB9aqEOvlrpFH8",
+          "mode": "list",
+          "cachedResultName": "Invoices",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblDB9aqEOvlrpFH8"
+        },
+        "returnAll": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cbff559b-6915-4137-950a-807b387f5119",
+      "name": "Search Unpaid Invoices",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": ":במידה ואינו בעלים, מחזיר \nסליחה, אני יכול לתקשר רק עם המנהל",
+        "height": 96,
+        "width": 192,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        448
+      ],
+      "id": "cb115450-63c4-4761-be48-cdfb12afb63a",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "סליחה, אני יכול לתקשר רק עם המנהל.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        272
+      ],
+      "id": "cb4dc590-99ea-405d-b887-3aa20d325dc4",
+      "name": "Send a message To Not Director",
+      "webhookId": "a2551397-6f61-48b9-9de3-7a0257467cc9",
+      "credentials": {
+        "telegramApi": {
+          "id": "KQbdiMKVvfyjv7VK",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "מחזיר תשובה מוכנה",
+        "height": 96,
+        "width": 160,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        944,
+        -128
+      ],
+      "id": "d097e813-fdfe-40bd-9781-f4fec12ec741",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "מחלץ מידה על כל החשבוניות שלו שולמו, מחבר סכומים ומכין לסוכן\nעד 100 חשבוניות",
+        "height": 96,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -208
+      ],
+      "id": "8faff650-0904-47b5-b9d6-87d33cbf68c9",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "מחלץ מידה על כל קבלות ששולמו, מחבר סכומים ומכין לסוכן\nעד 100 קבלות",
+        "height": 96,
+        "width": 272,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        272,
+        -208
+      ],
+      "id": "ec641827-e64a-4f72-a80d-3ca3e655101b",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "סוכן יודע להחזיר תשובה על סה\"כ הכנסות / חובות",
+        "height": 96,
+        "width": 192,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        656,
+        -128
+      ],
+      "id": "d2a161cb-90a8-4f01-a31a-5f02b94379ba",
+      "name": "Sticky Note6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check If Owner Talks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check If Owner Talks": {
+      "main": [
+        [
+          {
+            "node": "Search Unpaid Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message To Not Director",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text messageToDirector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Sum Debt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Sum Incomes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Paid Reciepts": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sum Debt": {
+      "main": [
+        [
+          {
+            "node": "Search Paid Reciepts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sum Incomes": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Unpaid Invoices": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "aa8971cf-b064-4c04-90e9-07462576aa20",
+  "meta": {
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "CtROvkZ9JYJZg6fs",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

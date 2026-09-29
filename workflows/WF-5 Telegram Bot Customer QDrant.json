@@ -1,0 +1,390 @@
+{
+  "name": "WF-5 Telegram Bot Customer QDrant",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        624,
+        -144
+      ],
+      "id": "2698fffc-f8f8-4fbf-88ae-c25a516b59c0",
+      "name": "Telegram Trigger",
+      "webhookId": "41ce06a9-abaf-4a87-b9b0-f801add0374d",
+      "credentials": {
+        "telegramApi": {
+          "id": "WgCIFrU6P3NeAwuw",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}\n\n",
+        "options": {
+          "systemMessage": "You are a helpful assistant answering about products, company policies, warranty, working hours and other information from vectorl storage only, every time you checking it from vectorl storage!"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1008,
+        -144
+      ],
+      "id": "b664fac8-5d19-40fb-9836-3133745b9cee",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        736,
+        80
+      ],
+      "id": "158a5729-155c-4404-84ca-b9fd1e334a92",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Q8zNgvOFi62z0bJ5",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1312,
+        368
+      ],
+      "id": "c80c68e6-8fb2-42c4-bdeb-96da49c2fbfd",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "Q8zNgvOFi62z0bJ5",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "you answering about products only",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "ProductsDemo",
+          "mode": "list",
+          "cachedResultName": "ProductsDemo"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        1360,
+        160
+      ],
+      "id": "f640f6f9-daae-4713-aa15-196c345abb97",
+      "name": "Qdrant Vector Store Products",
+      "credentials": {
+        "qdrantApi": {
+          "id": "DuSFnGNqBxnE5m8I",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=הי, {{ $('Telegram Trigger').item.json.message.from.first_name }}\n{{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1456,
+        -144
+      ],
+      "id": "327427e7-e14a-44d0-96c7-02b7d3d406ac",
+      "name": "Send a text messageToCustomer",
+      "webhookId": "a2551397-6f61-48b9-9de3-7a0257467cc9",
+      "credentials": {
+        "telegramApi": {
+          "id": "WgCIFrU6P3NeAwuw",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.from.id }}",
+        "collectionName": "FinalProject"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        160
+      ],
+      "id": "b9b19889-9a3f-43f6-b886-e487985b4b2b",
+      "name": "MongoDB Chat Memory",
+      "credentials": {
+        "mongoDb": {
+          "id": "EKiotErbSX3RLBFK",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "זיכרון של הסוכן\n ID שיחה נשמרת בבסיס על פי\nTELEGRAM של שולח ב ",
+        "height": 80,
+        "width": 224,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        880,
+        48
+      ],
+      "id": "d484c140-8b87-4f52-8252-b84fd74c05d0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "QDrant מאגרי מידע לתשובות מבוקרות ממוקם בבסיס",
+        "height": 80,
+        "width": 368,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        48
+      ],
+      "id": "bffe3713-db5d-48e1-8578-e1b3d4ec1e78",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "you answering about policies and other data about company",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "Policies",
+          "mode": "list",
+          "cachedResultName": "Policies"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        1104,
+        160
+      ],
+      "id": "a34a3590-4348-43a1-a58f-168a9f403848",
+      "name": "Qdrant Vector Store Policies",
+      "credentials": {
+        "qdrantApi": {
+          "id": "DuSFnGNqBxnE5m8I",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "סוכן שרות לקוחות שולף מידה ממאגרי : מוצרים ומדיוניות / מידה",
+        "height": 80,
+        "width": 448,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -240
+      ],
+      "id": "2ee3b6e4-96b9-4b18-8b14-bc2f3b195188",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "מודל קטן יותר ששולף מהבסיס מידה רלוונטי",
+        "height": 80,
+        "width": 304,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        256
+      ],
+      "id": "5d6df362-72ae-45b1-9fc9-55941e866a60",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "Telegram טריגר שממתין להודעה",
+        "height": 80,
+        "width": 256,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        544,
+        -240
+      ],
+      "id": "f48d4da9-5a5c-4010-8142-9b088d45f72c",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "Telegram שולח תשובה חזרה ל",
+        "height": 80,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        -240
+      ],
+      "id": "86bc2dcd-d3e8-419b-b20a-4623e88436c9",
+      "name": "Sticky Note5"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text messageToCustomer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store Products",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Qdrant Vector Store Policies",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store Products": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MongoDB Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store Policies": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "089b22f7-bf54-441e-b9c0-8f0f3c30e280",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "oKKDH9aV12pIgw2k",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}

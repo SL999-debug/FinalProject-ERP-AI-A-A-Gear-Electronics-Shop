@@ -1,0 +1,403 @@
+{
+  "name": "WF-4a Cold mail RTL",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "f5221ecb-69ba-4626-92c2-f01160e6bf5a",
+      "name": "Every 3 Hours",
+      "position": [
+        -1168,
+        96
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblj2M1alapmPvKFs",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblj2M1alapmPvKFs"
+        },
+        "filterByFormula": "Status='New'",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "id": "e2851ee7-419c-42e0-84d5-97915b1d99dc",
+      "name": "Search New Leads",
+      "position": [
+        -960,
+        96
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "retryOnFail": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ 'Write a short, friendly cold sales email in Hebrew, use RTL text formating to a business lead named ' + $json.Name + ' (company: ' + ($json.Company || 'לא ידוע') + ') who is interested in: ' + ($json.Interest || 'מוצרי אלקטרוניקה') + '. We are AI Gear Electronics, an Israeli electronics retailer. One clear call to action. Max 120 words. Return only the email body.' }}"
+      },
+      "id": "b3334e33-5dbf-4c16-ad67-a23665631acf",
+      "name": "Write Cold Email",
+      "position": [
+        -704,
+        80
+      ],
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Search New Leads').item.json.Email }}",
+        "subject": "AI Gear Electronics - הצעה מיוחדת מ",
+        "message": "=<!DOCTYPE html>\n<html lang=\"he\" dir=\"rtl\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>מכתב פנייה</title>\n  <style>\n    /* Reset and Outlook/Gmail compatibility styles */\n    body {\n      margin: 0;\n      padding: 0;\n      width: 100% !important;\n      -webkit-text-size-adjust: 100%;\n      -ms-text-size-adjust: 100%;\n      background-color: #ffffff;\n      font-family: Arial, sans-serif;\n    }\n    table {\n      border-collapse: collapse;\n      mso-table-lspace: 0pt;\n      mso-table-rspace: 0pt;\n    }\n    img {\n      border: 0;\n      height: auto;\n      line-height: 100%;\n      outline: none;\n      text-decoration: none;\n    }\n  </style>\n</head>\n<body dir=\"rtl\" style=\"margin: 0; padding: 0; background-color: #ffffff; font-family: Arial, sans-serif; direction: rtl; text-align: right;\">\n\n  <!-- Main Container Table -->\n  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color: #ffffff; direction: rtl;\">\n    <tr>\n      <td align=\"center\" style=\"padding: 20px;\">\n        \n        <!-- Email Body Wrapper (Max Width for Desktop) -->\n        <table width=\"100%\" id=\"emailContainer\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"max-width: 600px; width: 100%; direction: rtl; text-align: right;\">\n          \n          <!-- Header Logo / Company Name -->\n          <tr>\n            <td style=\"padding: 20px 0 10px 0; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; color: #1a365d;\">\n              AA GEAR אלקטרוניקה\n            </td>\n          </tr>\n          \n          <!-- Decorative Blue Horizontal Line -->\n          <tr>\n            <td style=\"padding: 0 0 30px 0;\">\n              <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                <tr>\n                  <td height=\"3\" style=\"background-color: #1a365d; font-size: 1px; line-height: 1px;\">&nbsp;</td>\n                </tr>\n              </table>\n            </td>\n          </tr>\n          \n          <!-- Greeting -->\n          <tr>\n            <td style=\"padding: 0 0 20px 0; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #333333;\">\n              שלום {{ $('Search New Leads').item.json.Name }}\n            </td>\n          </tr>\n          \n          <!-- Paragraph 1 -->\n          <tr>\n            <td style=\"padding: 0 0 20px 0; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333;\">\n              {{ $json.text }}\n            </td>\n          </tr>\n\n          \n          <!-- Sign-off -->\n          <tr>\n            <td style=\"padding: 0 0 5px 0; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #333333;\">\n              בברכה.\n            </td>\n          </tr>\n          \n        </table>\n        <!-- End Email Body Wrapper -->\n\n      </td>\n    </tr>\n  </table>\n  <!-- End Main Container Table -->\n\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "dc31dbd1-df35-48f9-986c-e3cb2a58f455",
+      "name": "Send Email",
+      "position": [
+        -368,
+        80
+      ],
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "webhookId": "b0033b40-e2c4-42ea-9d68-09eee650e7a3",
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Dit5ARZh7H9d44io",
+          "name": "Gmail account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appVONWYUf40A1qX5",
+          "mode": "list",
+          "cachedResultName": "ERP AI FinalProject",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblj2M1alapmPvKFs",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appVONWYUf40A1qX5/tblj2M1alapmPvKFs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "מייל נשלח",
+            "Email": "={{ $('Search New Leads').item.json.Email }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Telephone",
+              "displayName": "Telephone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Interested",
+              "displayName": "Interested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Created",
+              "displayName": "Created",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "a882cc77-3bc8-46e4-aa88-41924d78d42a",
+      "name": "Mark Contacted",
+      "position": [
+        -96,
+        64
+      ],
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Dh02gPx93kn1yXAI",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-5.4-mini",
+        "options": {}
+      },
+      "id": "66fb4504-a67c-41e6-8c7e-7f9e64f1601e",
+      "name": "Chat Model",
+      "position": [
+        -704,
+        304
+      ],
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "credentials": {
+        "openAiApi": {
+          "id": "Q8zNgvOFi62z0bJ5",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "\nשולח מייל לליד 1 כל 3 שעות",
+        "height": 96,
+        "width": 208,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1008,
+        -48
+      ],
+      "id": "c6765663-2fcd-4584-8f71-06c9ebdd0996",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "\n       מכין מייל בעברית ",
+        "height": 96,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        -48
+      ],
+      "id": "89778944-c17a-407c-96d5-6c30f0b8e101",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "מעדכן סטטום הליד\nAnswer ל\n",
+        "height": 96,
+        "width": 150,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -48
+      ],
+      "id": "c430ad66-472e-4b0a-94fc-822a1c4821f4",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": " שולח מייל לליד, בנוסף\nהטמעת תשובה לתוך תבית    \nמעוצבת HTML ",
+        "height": 96,
+        "width": 198,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        -48
+      ],
+      "id": "fc363d0a-7cdd-4e19-846c-fbaf77af6a04",
+      "name": "Sticky Note3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Every 3 Hours": {
+      "main": [
+        [
+          {
+            "node": "Search New Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search New Leads": {
+      "main": [
+        [
+          {
+            "node": "Write Cold Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Cold Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Mark Contacted",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write Cold Email",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "4be36674-471c-4496-881b-66e3388c1271",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6eedfd197fc8dcf50a75041236dcad179f4c793cb4e20e0eadb826ba3f00ea00"
+  },
+  "nodeGroups": [],
+  "id": "WX2rFWyuva8u9IGp",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T11:39:35.659Z",
+      "createdAt": "2026-07-28T11:39:35.659Z",
+      "id": "FA27MRLFi8rWu2On",
+      "name": "Work"
+    }
+  ]
+}
