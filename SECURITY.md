@@ -12,11 +12,11 @@ that decision is explicit rather than accidental.
 
 | Where | What | Why it matters |
 |---|---|---|
-| `app/aa-gear-admin.html` | Live n8n webhook URL `https://gl00001.oph.st/webhook/ERPMainSite` | It is reachable by anyone who has the URL, and it **writes to the Airtable base**. There is no auth token on it. |
-| `app/aa-gear-landing Final.html` | n8n **test** webhook `https://gl00001.oph.st/webhook-test/ErpAILids` | Same risk while the n8n editor is open. See known issue #2. |
-| `workflows/*.json` | Airtable base id `appVONWYUf40A1qX5` | Identifies the base; combined with any credential leak, it points straight at the data. |
+| `app/aa-gear-admin.html` | Live n8n webhook URL `https://th00001.obh.de/webhook/ERPMainSite` | It is reachable by anyone who has the URL, and it **writes to the Airtable base**. There is no auth token on it. |
+| `app/aa-gear-landing Final.html` | n8n **test** webhook `https://th00001.obh.de/webhook-test/ErpAILids` | Same risk while the n8n editor is open. See known issue #2. |
+| `workflows/*.json` | Airtable base id `appVJNTYKf50A1qX5` | Identifies the base; combined with any credential leak, it points straight at the data. |
 | `workflows/*.json` | ~150 n8n **credential id** references | These are pointers to credentials stored in the n8n instance, not the secrets themselves. Publishing them still tells an attacker exactly which credentials to target, and pollutes the n8n instance if the JSON is re-imported. |
-| `workflows/WF-9 TelegramBotDirector.json` | Director bot's Telegram chat id `967078186` | Personal identifier of the bot owner. |
+| `workflows/WF-9 TelegramBotDirector.json` | Director bot's Telegram chat id `972031276` | Personal identifier of the bot owner. |
 | `workflows/*.json` | Internal webhook paths and node topology | The working map of the system. |
 
 ### What is **not** in here
